@@ -10,7 +10,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         // Client-side error
         errorMessage = error.error.message;
       } else {
-        // Server-side error
         switch (error.status) {
           case 401:
             errorMessage = 'Unauthorized. Please login again.';

@@ -551,6 +551,23 @@
       "expertId": "expert-1770784767684-scwrp41aw",
       "createdAt": "2026-02-11T06:50:19.400Z",
       "updatedAt": "2026-02-11T06:50:28.829Z"
+    },
+    {
+      "id": "booking-1770798996907",
+      "customerId": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "serviceId": "service-2-id",
+      "addressId": "address-2-id",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 199,
+      "status": "CANCELLED",
+      "currency": "INR",
+      "expertId": null,
+      "createdAt": "2026-02-11T08:36:36.907Z",
+      "updatedAt": "2026-02-11T08:37:03.741Z"
     }
   ],
   "payments": [
