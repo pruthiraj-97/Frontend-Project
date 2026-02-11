@@ -1,0 +1,230 @@
+<div class="book-service-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo" routerLink="/customer/dashboard">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">HouseMate</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" (click)="cancel()">Cancel</button>
+    </div>
+  </header>
+
+  <!-- Progress Steps -->
+  <div class="progress-container">
+    <div class="container">
+      <div class="progress-steps">
+        <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Category</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 1"></div>
+        <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Service</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 2"></div>
+        <div class="step" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Addons</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 3"></div>
+        <div class="step" [class.active]="currentStep >= 4" [class.completed]="currentStep > 4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Address</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 4"></div>
+        <div class="step" [class.active]="currentStep >= 5">
+          <div class="step-circle">5</div>
+          <span class="step-label">Confirm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="booking-content">
+
+      <!-- Step 1: Select Category -->
+      <div class="step-content" *ngIf="currentStep === 1">
+        <h2 class="step-title">Select Service Category</h2>
+        <div class="spinner-container" *ngIf="isLoading">
+          <div class="spinner"></div>
+        </div>
+        <div class="categories-grid" *ngIf="!isLoading">
+          <div class="category-card" *ngFor="let category of categories" (click)="selectCategory(category)">
+            <div class="category-icon">{{ category.name === 'Cleaning' ? '🧹' : category.name === 'Plumbing' ? '🔧' :
+              category.name === 'Electrical' ? '⚡' : '🔨' }}</div>
+            <h3 class="category-name">{{ category.name }}</h3>
+            <p class="category-description">{{ category.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Select Service -->
+      <div class="step-content" *ngIf="currentStep === 2">
+        <h2 class="step-title">Select Service</h2>
+        <p class="step-subtitle">Category: {{ selectedCategory?.name }}</p>
+
+        <!-- Online Experts Section -->
+        <div class="online-experts-section mb-4">
+          <h3 class="h6 mb-3">Available Experts Online</h3>
+          <div *ngIf="experts.length > 0; else noExperts" class="d-flex gap-3 overflow-auto pb-2">
+            <div *ngFor="let expert of experts" class="expert-mini-card p-2 border rounded text-center"
+              style="min-width: 120px;">
+              <div class="expert-avatar mb-1">👨‍🔧</div>
+              <div class="expert-name font-weight-bold small">{{ expert.fullName }}</div>
+              <div class="expert-rating small text-warning">★ {{ expert.rating }}</div>
+            </div>
+          </div>
+          <ng-template #noExperts>
+            <div class="alert alert-warning small">
+              No experts currently online for this category. You can still book for later!
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="spinner-container" *ngIf="isLoading">
+          <div class="spinner"></div>
+        </div>
+        <div class="services-list" *ngIf="!isLoading">
+          <div class="service-card" *ngFor="let service of services" (click)="selectService(service)">
+            <div class="service-info">
+              <h3 class="service-name">{{ service.name }}</h3>
+              <p class="service-description">{{ service.description }}</p>
+              <div class="service-meta">
+                <span class="duration">⏱️ {{ service.typicalDurationMinutes }} mins</span>
+              </div>
+            </div>
+            <div class="service-price">
+              <span class="price">₹{{ service.startingPrice }}</span>
+              <button class="btn btn-primary btn-sm">Select</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" (click)="previousStep()">Back</button>
+      </div>
+
+      <!-- Step 3: Select Addons -->
+      <div class="step-content" *ngIf="currentStep === 3">
+        <h2 class="step-title">Add Extra Services (Optional)</h2>
+        <p class="step-subtitle">Service: {{ selectedService?.name }}</p>
+        <div class="addons-list" *ngIf="selectedService && selectedService.addons && selectedService.addons.length > 0">
+          <div class="addon-card" *ngFor="let addon of selectedService.addons" [class.selected]="isAddonSelected(addon)"
+            (click)="toggleAddon(addon)">
+            <div class="addon-info">
+              <h4 class="addon-name">{{ addon.name }}</h4>
+              <p class="addon-description">{{ addon.description }}</p>
+            </div>
+            <div class="addon-price">
+              <span class="price">+₹{{ addon.priceDelta }}</span>
+              <span class="material-icons check-icon" *ngIf="isAddonSelected(addon)">check_circle</span>
+            </div>
+          </div>
+        </div>
+        <div class="no-addons"
+          *ngIf="!selectedService || !selectedService.addons || selectedService.addons.length === 0">
+          <p>No additional services available for this service.</p>
+        </div>
+        <div class="step-actions">
+          <button class="btn btn-secondary" (click)="previousStep()">Back</button>
+          <button class="btn btn-primary" (click)="nextStep()">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Select Address -->
+      <div class="step-content" *ngIf="currentStep === 4">
+        <h2 class="step-title">Select Service Address</h2>
+        <div class="addresses-list">
+          <div class="address-card" *ngFor="let address of addresses"
+            [class.selected]="selectedAddress?.id === address.id" (click)="selectAddress(address)">
+            <div class="address-info">
+              <h4 class="address-type">{{ address.type }}</h4>
+              <p class="address-line">{{ address.line1 }}</p>
+              <p class="address-line" *ngIf="address.line2">{{ address.line2 }}</p>
+              <p class="address-city">{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+              <span class="badge badge-default" *ngIf="address.isDefault">Default</span>
+            </div>
+            <span class="material-icons check-icon" *ngIf="selectedAddress?.id === address.id">check_circle</span>
+          </div>
+        </div>
+        <button class="btn btn-link" routerLink="/customer/addresses">+ Add New Address</button>
+        <div class="step-actions">
+          <button class="btn btn-secondary" (click)="previousStep()">Back</button>
+          <button class="btn btn-primary" (click)="nextStep()" [disabled]="!selectedAddress">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Confirm & Book -->
+      <div class="step-content" *ngIf="currentStep === 5">
+        <h2 class="step-title">Confirm Booking</h2>
+
+        <form [formGroup]="bookingForm" class="booking-form">
+          <div class="form-group">
+            <label class="form-label">Booking Type</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" formControlName="bookingType" value="ASAP">
+                <span>ASAP (As Soon As Possible)</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" formControlName="bookingType" value="SCHEDULED">
+                <span>Schedule for Later</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row" *ngIf="bookingForm.value.bookingType === 'SCHEDULED'">
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" class="form-control" formControlName="scheduledDate">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <input type="time" class="form-control" formControlName="scheduledTime">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Special Instructions (Optional)</label>
+            <textarea class="form-control" formControlName="notes" rows="3"
+              placeholder="Any special requirements..."></textarea>
+          </div>
+        </form>
+
+        <!-- Booking Summary -->
+        <div class="booking-summary">
+          <h3>Booking Summary</h3>
+          <div class="summary-item">
+            <span>Service:</span>
+            <span>{{ selectedService?.name }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Duration:</span>
+            <span>~{{ selectedService?.typicalDurationMinutes }} mins</span>
+          </div>
+          <div class="summary-item">
+            <span>Base Price:</span>
+            <span>₹{{ selectedService?.startingPrice }}</span>
+          </div>
+          <div class="summary-item" *ngFor="let addon of selectedAddons">
+            <span>{{ addon.name }}:</span>
+            <span>₹{{ addon.priceDelta }}</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-item total">
+            <span>Total Amount:</span>
+            <span>₹{{ getTotalAmount() }}</span>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn btn-secondary" (click)="previousStep()">Back</button>
+          <button class="btn btn-primary btn-lg" (click)="proceedToPayment()">Proceed to Payment</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

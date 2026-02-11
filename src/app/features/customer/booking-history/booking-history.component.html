@@ -1,0 +1,124 @@
+<div class="booking-history-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo" routerLink="/customer/dashboard">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">HouseMate</span>
+      </div>
+      <nav class="nav">
+        <a routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/customer/bookings" routerLinkActive="active">My Bookings</a>
+        <a routerLink="/customer/addresses" routerLinkActive="active">Addresses</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">My Bookings</h1>
+      <button class="btn btn-primary" routerLink="/customer/book-service">
+        <span class="material-icons">add</span>
+        Book New Service
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button *ngFor="let filter of filters" class="filter-btn" [class.active]="selectedFilter === filter.value"
+        (click)="filterBookings(filter.value)">
+        {{ filter.label }}
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && filteredBookings.length === 0">
+      <span class="material-icons empty-icon">event_busy</span>
+      <h3>No Bookings Found</h3>
+      <p>You haven't made any bookings yet. Book a service to get started!</p>
+      <button class="btn btn-primary" routerLink="/customer/book-service">Book Service</button>
+    </div>
+
+    <!-- Bookings List -->
+    <div class="bookings-grid" *ngIf="!isLoading && filteredBookings.length > 0">
+      <div class="booking-card" *ngFor="let booking of filteredBookings">
+        <div class="booking-header">
+          <div class="booking-id">
+            <span class="label">Booking ID:</span>
+            <span class="value">#{{ booking.id.substring(0, 8) }}</span>
+          </div>
+          <span class="booking-status" [ngClass]="getStatusClass(booking.status)">
+            {{ getStatusLabel(booking.status) }}
+          </span>
+        </div>
+
+        <div class="booking-body">
+          <div class="booking-info">
+            <div class="info-item">
+              <span class="material-icons">event</span>
+              <div class="info-text">
+                <span class="info-label">Booking Type</span>
+                <span class="info-value">{{ booking.bookingType }}</span>
+              </div>
+            </div>
+
+            <div class="info-item" *ngIf="booking.scheduledDate">
+              <span class="material-icons">schedule</span>
+              <div class="info-text">
+                <span class="info-label">Scheduled For</span>
+                <span class="info-value">{{ booking.scheduledDate | date:'medium' }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="material-icons">location_on</span>
+              <div class="info-text">
+                <span class="info-label">Service Address</span>
+                <span class="info-value">Address ID: {{ booking.addressId }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="material-icons">payments</span>
+              <div class="info-text">
+                <span class="info-label">Amount</span>
+                <span class="info-value amount">₹{{ booking.quotedAmount }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button class="btn btn-primary btn-sm" (click)="viewBookingDetails(booking.id)">
+              View Details
+            </button>
+            <button class="btn btn-success btn-sm" *ngIf="booking.status === 'PENDING_PAYMENT'"
+              (click)="payNow(booking)">
+              Pay Now
+            </button>
+            <button class="btn btn-secondary btn-sm" *ngIf="booking.status === 'CONFIRMED'">
+              Modify
+            </button>
+            <button class="btn btn-danger btn-sm"
+              *ngIf="booking.status === 'CONFIRMED' || booking.status === 'PENDING_PAYMENT'">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="booking-footer">
+          <span class="created-date">
+            <span class="material-icons">access_time</span>
+            Booked on {{ booking.createdAt | date:'short' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

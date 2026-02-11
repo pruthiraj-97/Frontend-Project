@@ -1,0 +1,19 @@
+
+# Node.js
+node_modules/
+backend/node_modules/
+package-lock.json
+
+# Angular
+dist/
+.angular/
+.editorconfig
+.vscode/
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# System Files
+.DS_Store
+Thumbs.db

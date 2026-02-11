@@ -1,0 +1,215 @@
+<div class="dashboard-page">
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate Expert</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/expert/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/expert/jobs" routerLinkActive="active">Jobs</a>
+        <a routerLink="/expert/earnings" routerLinkActive="active">Earnings</a>
+        <a routerLink="/expert/availability" routerLinkActive="active">Availability</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Loading State -->
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div *ngIf="!isLoading && expertProfile">
+      <!-- Welcome Section -->
+      <div class="welcome-section">
+        <div class="welcome-text">
+          <h1>Welcome back, {{ expertProfile.fullName }}!</h1>
+          <p>Here's your performance overview</p>
+        </div>
+        <div class="availability-toggle">
+          <label class="toggle-label">
+            <span>{{ expertProfile.onlineStatus === 'ONLINE' ? 'Online' : 'Offline' }}</span>
+            <div class="toggle-switch" [class.active]="expertProfile.onlineStatus === 'ONLINE'"
+              (click)="toggleAvailability()">
+              <div class="toggle-slider"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Earnings Summary Cards -->
+      <div class="stats-grid">
+        <div class="stat-card earnings-card">
+          <div class="stat-icon">
+            <span class="material-icons">account_balance_wallet</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Today's Earnings</div>
+            <div class="stat-value">₹{{ todayEarnings }}</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <span class="material-icons">trending_up</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">This Week</div>
+            <div class="stat-value">₹{{ weekEarnings }}</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <span class="material-icons">calendar_month</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">This Month</div>
+            <div class="stat-value">₹{{ monthEarnings }}</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <span class="material-icons">payments</span>
+          </div>
+          <div class="stat-content">
+            <div class="stat-label">Total Earned</div>
+            <div class="stat-value">₹{{ earnings?.totalEarned || 0 }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card" routerLink="/expert/jobs" style="cursor: pointer; border-left: 4px solid #4CAF50;">
+          <div class="metric-icon">
+            <span class="material-icons text-success">new_releases</span>
+          </div>
+          <div class="metric-content">
+            <div class="metric-value">{{ newJobOffersCount }}</div>
+            <div class="metric-label">New Job Offers</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">
+            <span class="material-icons">work</span>
+          </div>
+          <div class="metric-content">
+            <div class="metric-value">{{ activeJobsCount }}</div>
+            <div class="metric-label">Active Jobs</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">
+            <span class="material-icons">check_circle</span>
+          </div>
+          <div class="metric-content">
+            <div class="metric-value">{{ expertProfile.totalJobs }}</div>
+            <div class="metric-label">Completed Jobs</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">
+            <span class="material-icons">star</span>
+          </div>
+          <div class="metric-content">
+            <div class="metric-value">{{ expertProfile.rating.toFixed(1) }}</div>
+            <div class="metric-label">Average Rating</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">
+            <span class="material-icons">pending</span>
+          </div>
+          <div class="metric-content">
+            <div class="metric-value">₹{{ earnings?.pendingAmount || 0 }}</div>
+            <div class="metric-label">Pending Payout</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="actions-grid">
+          <button class="action-btn" routerLink="/expert/jobs">
+            <span class="material-icons">work_outline</span>
+            <span>View Job Offers</span>
+          </button>
+          <button class="action-btn" routerLink="/expert/earnings">
+            <span class="material-icons">account_balance</span>
+            <span>View Earnings</span>
+          </button>
+          <button class="action-btn" routerLink="/expert/availability">
+            <span class="material-icons">schedule</span>
+            <span>Manage Availability</span>
+          </button>
+          <button class="action-btn" (click)="toggleAvailability()">
+            <span class="material-icons">{{ expertProfile.onlineStatus === 'ONLINE' ? 'pause_circle' : 'play_circle'
+              }}</span>
+            <span>{{ expertProfile.onlineStatus === 'ONLINE' ? 'Go Offline' : 'Go Online' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Jobs -->
+      <div class="recent-jobs-section">
+        <div class="section-header">
+          <h2>Recent Jobs</h2>
+          <a routerLink="/expert/jobs" class="view-all-link">View All</a>
+        </div>
+
+        <div class="jobs-list" *ngIf="recentJobs.length > 0">
+          <div class="job-card" *ngFor="let job of recentJobs">
+            <div class="job-header">
+              <div class="job-id">
+                <span class="material-icons">receipt</span>
+                <span>{{ job.serviceName || 'Job #' + job.id.substring(0, 8) }}</span>
+              </div>
+              <span class="status-badge status-completed">Completed</span>
+            </div>
+            <div class="job-body">
+              <div class="job-info">
+                <span class="material-icons">event</span>
+                <span>{{ job.updatedAt | date: 'MMM d, y' }}</span>
+              </div>
+              <div class="job-info">
+                <span class="material-icons">schedule</span>
+                <span>{{ job.durationMinutes }} mins</span>
+              </div>
+              <div class="job-amount">
+                <span class="material-icons">payments</span>
+                <span>₹{{ job.quotedAmount }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="recentJobs.length === 0">
+          <span class="material-icons empty-icon">work_off</span>
+          <p>No recent jobs</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Profile State -->
+    <div class="no-profile-state" *ngIf="!isLoading && !expertProfile">
+      <span class="material-icons error-icon">error_outline</span>
+      <h2>Expert Profile Not Found</h2>
+      <p>Please contact support or register as an expert.</p>
+      <button class="btn btn-primary" routerLink="/expert/register">Register as Expert</button>
+    </div>
+  </div>
+</div>

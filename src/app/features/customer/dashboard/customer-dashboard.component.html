@@ -1,0 +1,89 @@
+<div class="dashboard-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">HouseMate</span>
+      </div>
+      <nav class="nav">
+        <a routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/customer/bookings" routerLinkActive="active">My Bookings</a>
+        <a routerLink="/customer/addresses" routerLinkActive="active">Addresses</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <h1 class="welcome-title">Welcome back, {{ customerName }}! 👋</h1>
+      <p class="welcome-subtitle">What service do you need today?</p>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <button class="action-card primary" (click)="navigateToBookService()">
+        <span class="material-icons">add_circle</span>
+        <h3>Book New Service</h3>
+        <p>Get instant or scheduled service</p>
+      </button>
+      <button class="action-card" (click)="navigateToBookings()">
+        <span class="material-icons">history</span>
+        <h3>My Bookings</h3>
+        <p>View booking history</p>
+      </button>
+      <button class="action-card" (click)="navigateToAddresses()">
+        <span class="material-icons">location_on</span>
+        <h3>Manage Addresses</h3>
+        <p>Add or edit addresses</p>
+      </button>
+    </section>
+
+    <!-- Service Categories -->
+    <section class="categories-section">
+      <h2 class="section-title">Browse Services</h2>
+      
+      <div class="spinner-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="categories-grid" *ngIf="!isLoading">
+        <div class="category-card" *ngFor="let category of categories" (click)="navigateToBookService(category.id)">
+          <div class="category-icon">{{ category.name === 'Cleaning' ? '🧹' : category.name === 'Plumbing' ? '🔧' : category.name === 'Electrical' ? '⚡' : '🔨' }}</div>
+          <h3 class="category-name">{{ category.name }}</h3>
+          <p class="category-description">{{ category.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Bookings -->
+    <section class="recent-bookings" *ngIf="recentBookings.length > 0">
+      <div class="section-header">
+        <h2 class="section-title">Recent Bookings</h2>
+        <a routerLink="/customer/bookings" class="view-all">View All →</a>
+      </div>
+
+      <div class="bookings-list">
+        <div class="booking-card" *ngFor="let booking of recentBookings">
+          <div class="booking-header">
+            <span class="booking-id">#{{ booking.id.substring(0, 8) }}</span>
+            <span class="booking-status" [class]="'status-' + booking.status.toLowerCase()">
+              {{ booking.status.replace('_', ' ') }}
+            </span>
+          </div>
+          <div class="booking-details">
+            <p class="booking-type">{{ booking.bookingType }}</p>
+            <p class="booking-amount">₹{{ booking.quotedAmount }}</p>
+          </div>
+          <button class="btn btn-sm btn-secondary" [routerLink]="['/customer/bookings', booking.id]">
+            View Details
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+

@@ -1,0 +1,71 @@
+<div class="login-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">HouseMate</span>
+      </div>
+      <div class="header-actions">
+        <a routerLink="/customer/register" class="link">Customer Register</a>
+        <a routerLink="/expert/login" class="link">Expert Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="login-container">
+    <div class="login-card">
+      <div class="title-section">
+        <h1 class="title">CUSTOMER LOGIN</h1>
+        <p class="subtitle">Welcome back! Login to book trusted home services.</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+          <label class="form-label">Mobile Number *</label>
+          <div class="phone-input">
+            <span class="country-code">+91</span>
+            <input 
+              type="tel" 
+              class="form-control" 
+              formControlName="phone"
+              placeholder="9876543210">
+          </div>
+          <div class="form-error" *ngIf="loginForm.get('phone')?.touched && loginForm.get('phone')?.errors">
+            <span *ngIf="loginForm.get('phone')?.errors?.['required']">Mobile number is required</span>
+            <span *ngIf="loginForm.get('phone')?.errors?.['pattern']">Enter valid 10-digit mobile number</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            formControlName="password"
+            placeholder="Enter your password">
+          <div class="form-error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+            Password is required
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          <span class="material-icons">error</span>
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">
+          <span *ngIf="!isLoading">LOGIN</span>
+          <span *ngIf="isLoading" class="spinner"></span>
+        </button>
+      </form>
+
+      <div class="form-footer">
+        <p>Don't have an account? <a routerLink="/customer/register">Register Now</a></p>
+        <a (click)="backToHome()" class="back-link">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,314 @@
+<div class="booking-details-page">
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/">
+        <span class="material-icons logo-icon">home</span>
+        <span>HouseMate</span>
+      </div>
+      <nav class="nav">
+        <a routerLink="/customer/dashboard">Dashboard</a>
+        <a routerLink="/customer/book-service">Book Service</a>
+        <a routerLink="/customer/bookings" class="active">My Bookings</a>
+        <button class="btn btn-secondary btn-sm" (click)="goBack()">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Loading State -->
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="error && !isLoading">
+      <span class="material-icons error-icon">error_outline</span>
+      <h3>{{ error }}</h3>
+      <button class="btn btn-primary" (click)="goBack()">Back to Bookings</button>
+    </div>
+
+    <!-- Booking Details -->
+    <div class="details-container" *ngIf="booking && !isLoading">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Booking Details</h1>
+          <p class="booking-id">Booking ID: #{{ booking.id.substring(0, 8) }}</p>
+        </div>
+        <span class="booking-status" [ngClass]="getStatusClass(booking.status)">
+          {{ getStatusLabel(booking.status) }}
+        </span>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="content-grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Service Details Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="material-icons">room_service</span>
+              <h3>Service Details</h3>
+            </div>
+            <div class="card-body">
+              <div class="detail-item">
+                <span class="label">Service Name:</span>
+                <span class="value">{{ service?.name || 'Loading...' }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Description:</span>
+                <span class="value">{{ service?.description || 'N/A' }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Duration:</span>
+                <span class="value">{{ booking.durationMinutes }} minutes</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Booking Type:</span>
+                <span class="value">{{ booking.bookingType }}</span>
+              </div>
+              <div class="detail-item" *ngIf="booking.scheduledStartTime">
+                <span class="label">Scheduled Time:</span>
+                <span class="value">{{ booking.scheduledStartTime | date:'medium' }}</span>
+              </div>
+              <div class="detail-item" *ngIf="booking.notes">
+                <span class="label">Special Instructions:</span>
+                <span class="value">{{ booking.notes }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="material-icons">location_on</span>
+              <h3>Service Address</h3>
+            </div>
+            <div class="card-body">
+              <div class="address-details" *ngIf="address">
+                <p class="address-label">{{ address.label }}</p>
+                <p>{{ address.line1 }}</p>
+                <p *ngIf="address.line2">{{ address.line2 }}</p>
+                <p>{{ address.city }}, {{ address.state }} - {{ address.postalCode }}</p>
+              </div>
+              <div *ngIf="!address">
+                <p>Loading address...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expert Details Card -->
+          <div class="card" *ngIf="expert">
+            <div class="card-header">
+              <span class="material-icons">person</span>
+              <h3>Expert Details</h3>
+            </div>
+            <div class="card-body">
+              <div class="expert-info">
+                <div class="expert-avatar">
+                  <span class="material-icons">account_circle</span>
+                </div>
+                <div class="expert-details">
+                  <h4>{{ expert.fullName }}</h4>
+                  <div class="expert-rating">
+                    <span class="material-icons">star</span>
+                    <span>{{ expert.rating }} ({{ expert.totalJobs }} jobs)</span>
+                  </div>
+                  <p class="expert-phone">{{ expert.phone }}</p>
+                  <div class="expert-status">
+                    <span class="status-badge" [class.online]="expert.onlineStatus === 'ONLINE'">
+                      {{ expert.onlineStatus }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="expert-actions">
+                <button class="btn btn-secondary btn-sm" (click)="contactExpert()">
+                  <span class="material-icons">phone</span>
+                  Contact Expert
+                </button>
+                <button class="btn btn-secondary btn-sm" (click)="trackExpert()"
+                  *ngIf="booking.status === 'CONFIRMED' || booking.status === 'IN_PROGRESS'">
+                  <span class="material-icons">my_location</span>
+                  Track Location
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Waiting for Expert -->
+          <div class="card" *ngIf="!expert && booking.status !== 'CANCELLED'">
+            <div class="card-header">
+              <span class="material-icons">hourglass_empty</span>
+              <h3>Expert Assignment</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">Waiting for expert to be assigned...</p>
+              <p class="text-small">We'll notify you once an expert accepts your booking.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Payment Summary Card -->
+          <div class="card payment-card">
+            <div class="card-header">
+              <span class="material-icons">payments</span>
+              <h3>Payment Summary</h3>
+            </div>
+            <div class="card-body">
+              <div class="payment-item">
+                <span>Service Charge:</span>
+                <span>₹{{ booking.quotedAmount }}</span>
+              </div>
+              <div class="payment-divider"></div>
+              <div class="payment-item total">
+                <span>Total Amount:</span>
+                <span>₹{{ booking.quotedAmount }}</span>
+              </div>
+              <div class="payment-status" *ngIf="payment">
+                <span class="label">Payment Status:</span>
+                <span class="badge" [ngClass]="'payment-' + payment.status.toLowerCase()">
+                  {{ payment.status }}
+                </span>
+              </div>
+              <div class="payment-method" *ngIf="payment">
+                <span class="label">Payment Method:</span>
+                <span>{{ payment.method }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="material-icons">timeline</span>
+              <h3>Booking Timeline</h3>
+            </div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item completed">
+                  <div class="timeline-icon">
+                    <span class="material-icons">check_circle</span>
+                  </div>
+                  <div class="timeline-content">
+                    <h4>Booking Created</h4>
+                    <p>{{ booking.createdAt | date:'medium' }}</p>
+                  </div>
+                </div>
+
+                <div class="timeline-item" [class.completed]="booking.status !== 'PENDING_PAYMENT'">
+                  <div class="timeline-icon">
+                    <span class="material-icons">{{ booking.status !== 'PENDING_PAYMENT' ? 'check_circle' :
+                      'radio_button_unchecked' }}</span>
+                  </div>
+                  <div class="timeline-content">
+                    <h4>Payment Confirmed</h4>
+                    <p *ngIf="payment && payment.status === 'SUCCEEDED'">{{ payment.createdAt | date:'medium' }}</p>
+                    <p *ngIf="!payment || payment.status !== 'SUCCEEDED'" class="text-muted">Pending</p>
+                  </div>
+                </div>
+
+                <div class="timeline-item" [class.completed]="expert !== null">
+                  <div class="timeline-icon">
+                    <span class="material-icons">{{ expert ? 'check_circle' : 'radio_button_unchecked' }}</span>
+                  </div>
+                  <div class="timeline-content">
+                    <h4>Expert Assigned</h4>
+                    <p *ngIf="expert">{{ expert.fullName }}</p>
+                    <p *ngIf="!expert" class="text-muted">Waiting for assignment</p>
+                  </div>
+                </div>
+
+                <div class="timeline-item" [class.completed]="booking.actualStartTime !== null">
+                  <div class="timeline-icon">
+                    <span class="material-icons">{{ booking.actualStartTime ? 'check_circle' : 'radio_button_unchecked'
+                      }}</span>
+                  </div>
+                  <div class="timeline-content">
+                    <h4>Service Started</h4>
+                    <p *ngIf="booking.actualStartTime">{{ booking.actualStartTime | date:'medium' }}</p>
+                    <p *ngIf="!booking.actualStartTime" class="text-muted">Not started yet</p>
+                  </div>
+                </div>
+
+                <div class="timeline-item" [class.completed]="booking.status === 'COMPLETED'">
+                  <div class="timeline-icon">
+                    <span class="material-icons">{{ booking.status === 'COMPLETED' ? 'check_circle' :
+                      'radio_button_unchecked' }}</span>
+                  </div>
+                  <div class="timeline-content">
+                    <h4>Service Completed</h4>
+                    <p *ngIf="booking.actualEndTime">{{ booking.actualEndTime | date:'medium' }}</p>
+                    <p *ngIf="!booking.actualEndTime" class="text-muted">In progress</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rating Card (if completed) -->
+          <div class="card" *ngIf="booking.status === 'COMPLETED'">
+            <div class="card-header">
+              <span class="material-icons">star</span>
+              <h3>Your Rating</h3>
+            </div>
+            <div class="card-body">
+              <div *ngIf="rating" class="rating-display">
+                <div class="stars">
+                  <span class="material-icons" *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= rating.stars">
+                    {{ star <= rating.stars ? 'star' : 'star_border' }} </span>
+                </div>
+                <p class="rating-comment">{{ rating.comment }}</p>
+                <p class="rating-date">{{ rating.createdAt | date:'medium' }}</p>
+              </div>
+              <div *ngIf="!rating">
+                <p class="text-muted">You haven't rated this service yet.</p>
+                <button class="btn btn-primary" (click)="rateService()">
+                  <span class="material-icons">star</span>
+                  Rate Service
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions Card -->
+          <div class="card actions-card">
+            <div class="card-header">
+              <span class="material-icons">settings</span>
+              <h3>Actions</h3>
+            </div>
+            <div class="card-body">
+              <div class="action-buttons">
+                <button class="btn btn-success" (click)="payNow()" *ngIf="booking.status === 'PENDING_PAYMENT'">
+                  <span class="material-icons">payments</span>
+                  Pay Now
+                </button>
+                <button class="btn btn-secondary" (click)="modifyBooking()"
+                  *ngIf="booking.status === 'CONFIRMED' && !booking.expertId">
+                  <span class="material-icons">edit</span>
+                  Modify Booking
+                </button>
+                <button class="btn btn-danger" (click)="cancelBooking()"
+                  *ngIf="booking.status !== 'CANCELLED' && booking.status !== 'COMPLETED'"
+                  [disabled]="booking.status === 'IN_PROGRESS'">
+                  <span class="material-icons">cancel</span>
+                  Cancel Booking
+                </button>
+                <button class="btn btn-primary" (click)="goBack()">
+                  <span class="material-icons">arrow_back</span>
+                  Back to Bookings
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

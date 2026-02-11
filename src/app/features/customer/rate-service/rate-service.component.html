@@ -1,0 +1,53 @@
+<div class="rate-service-page">
+    <div class="container">
+        <div class="header">
+            <h1>Rate Your Experience</h1>
+            <a routerLink="/customer/bookings" class="back-link">
+                <span class="material-icons">arrow_back</span>
+                Back to Bookings
+            </a>
+        </div>
+
+        <div class="rating-card">
+            <div *ngIf="booking" class="booking-summary">
+                <h2>{{ serviceName }}</h2>
+                <p class="expert-name" *ngIf="expertName">
+                    served by {{ expertName }}
+                </p>
+                <p class="date">Completed on {{ booking.updatedAt | date:'medium' }}</p>
+            </div>
+
+            <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+                <div class="stars-container">
+                    <label>How would you rate the service?</label>
+                    <div class="stars">
+                        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="material-icons star-icon"
+                            [class.filled]="star <= (hoveredStar || f['stars'].value)" (mouseenter)="hoveredStar = star"
+                            (mouseleave)="hoveredStar = 0" (click)="setRating(star)">
+                            star
+                        </span>
+                    </div>
+                    <div *ngIf="submitted && f['stars'].errors" class="error-text">
+                        Please select a star rating.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Tell us more about your experience</label>
+                    <textarea id="comment" formControlName="comment" rows="4"
+                        placeholder="Was the expert professional? Did they do a good job?"></textarea>
+                    <div *ngIf="submitted && f['comment'].errors" class="error-text">
+                        <span *ngIf="f['comment'].errors['required']">Comment is required.</span>
+                        <span *ngIf="f['comment'].errors['minlength']">Comment must be at least 10 characters
+                            long.</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn btn-secondary" routerLink="/customer/bookings">Cancel</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="ratingForm.invalid">Submit Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

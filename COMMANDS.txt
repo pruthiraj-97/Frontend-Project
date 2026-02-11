@@ -1,0 +1,43 @@
+STEP 1: Install Backend Dependencies
+=====================================
+cd backend
+touch yarn.lock
+yarn install --registry https://registry.npmjs.org
+
+
+STEP 2: Install Frontend Dependencies
+======================================
+cd ..
+yarn install --registry https://registry.npmjs.org
+
+
+STEP 3: Start Backend Server (Terminal 1)
+==========================================
+cd backend
+node server.js
+
+
+STEP 4: Start Frontend Server (Terminal 2 - Open New Terminal)
+===============================================================
+npm start
+
+
+ALTERNATIVE: If yarn still fails, use npm directly
+===================================================
+cd backend
+npm install --registry https://registry.npmjs.org --no-proxy
+
+cd ..
+npm install --registry https://registry.npmjs.org --no-proxy
+
+
+ALTERNATIVE: If npm also fails, install packages manually
+==========================================================
+cd backend
+npm install json-server@0.17.4 --registry https://registry.npmjs.org --no-proxy
+npm install cors@2.8.5 --registry https://registry.npmjs.org --no-proxy
+
+cd ..
+npm install @angular/core@19.0.0 --registry https://registry.npmjs.org --no-proxy
+npm install @angular/cli@19.0.0 --registry https://registry.npmjs.org --no-proxy
+

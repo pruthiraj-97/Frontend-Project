@@ -1,0 +1,115 @@
+<div class="feedback-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/customer/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/customer/dashboard">Dashboard</a>
+        <a routerLink="/customer/bookings">My Bookings</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Rate Your Experience</h1>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && booking" class="feedback-content">
+      <div class="feedback-card">
+        <div class="booking-info">
+          <span class="material-icons">receipt</span>
+          <div>
+            <h3>Booking #{{ booking.id }}</h3>
+            <p>{{ booking.completedAt | date: 'MMM d, y h:mm a' }}</p>
+          </div>
+        </div>
+
+        <div class="rating-section">
+          <h2>Overall Rating</h2>
+          <p class="subtitle">How was your overall experience?</p>
+          <div class="stars-container">
+            <span *ngFor="let star of stars" 
+                  class="material-icons star" 
+                  [class.filled]="star <= rating"
+                  (click)="setRating(star)">
+              {{ star <= rating ? 'star' : 'star_border' }}
+            </span>
+          </div>
+          <p class="rating-text" *ngIf="rating > 0">
+            {{ rating === 5 ? 'Excellent!' : rating === 4 ? 'Good' : rating === 3 ? 'Average' : rating === 2 ? 'Below Average' : 'Poor' }}
+          </p>
+        </div>
+
+        <div class="rating-section">
+          <h2>Service Quality</h2>
+          <p class="subtitle">Rate the quality of service provided</p>
+          <div class="stars-container">
+            <span *ngFor="let star of stars" 
+                  class="material-icons star" 
+                  [class.filled]="star <= serviceRating"
+                  (click)="setServiceRating(star)">
+              {{ star <= serviceRating ? 'star' : 'star_border' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="rating-section">
+          <h2>Expert Performance</h2>
+          <p class="subtitle">Rate the expert's professionalism and skill</p>
+          <div class="stars-container">
+            <span *ngFor="let star of stars" 
+                  class="material-icons star" 
+                  [class.filled]="star <= expertRating"
+                  (click)="setExpertRating(star)">
+              {{ star <= expertRating ? 'star' : 'star_border' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="review-section">
+          <h2>Write a Review</h2>
+          <p class="subtitle">Share your experience to help others</p>
+          <textarea [(ngModel)]="review" 
+                    class="review-textarea" 
+                    rows="5" 
+                    placeholder="Tell us about your experience..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" routerLink="/customer/bookings">
+            Skip
+          </button>
+          <button class="btn btn-primary" (click)="submitFeedback()" [disabled]="rating === 0">
+            <span class="material-icons">send</span>
+            Submit Feedback
+          </button>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <span class="material-icons">info</span>
+        <div>
+          <h3>Why feedback matters</h3>
+          <ul>
+            <li>Helps us improve our services</li>
+            <li>Assists other customers in making informed decisions</li>
+            <li>Recognizes excellent expert performance</li>
+            <li>Your feedback is valuable to us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

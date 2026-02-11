@@ -1,0 +1,174 @@
+<div class="job-offers-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/expert/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate Expert</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/expert/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/expert/jobs" routerLinkActive="active">Jobs</a>
+        <a routerLink="/expert/earnings" routerLinkActive="active">Earnings</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Jobs</h1>
+      <div class="sort-controls" *ngIf="activeTab === 'available'">
+        <label>Sort by:</label>
+        <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange(sortBy)">
+          <option value="payment">Highest Payment</option>
+          <option value="distance">Nearest</option>
+          <option value="time">Latest</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn" [class.active]="activeTab === 'available'" (click)="activeTab = 'available'">
+        Available Jobs ({{ availableJobs.length }})
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'active'" (click)="activeTab = 'active'">
+        My Active Jobs ({{ activeJobs.length }})
+      </button>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Available Jobs Grid -->
+    <div class="jobs-grid" *ngIf="!isLoading && activeTab === 'available' && availableJobs.length > 0">
+      <div class="job-card" *ngFor="let job of availableJobs">
+        <!-- ... existing job card structure ... -->
+        <div class="job-header">
+          <div class="service-info">
+            <h3>{{ job.service?.name }}</h3>
+            <p class="service-desc">{{ job.service?.description }}</p>
+          </div>
+          <div class="job-amount">
+            <span class="amount">₹{{ job.quotedAmount }}</span>
+            <span class="duration">{{ job.durationMinutes }} mins</span>
+          </div>
+        </div>
+
+        <div class="job-details">
+          <div class="detail-item">
+            <span class="material-icons">location_on</span>
+            <div class="detail-content">
+              <span class="detail-label">Location</span>
+              <span class="detail-value">{{ job.address?.line1 }}, {{ job.address?.city }}</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="material-icons">near_me</span>
+            <div class="detail-content">
+              <span class="detail-label">Distance</span>
+              <span class="detail-value">{{ job.distance }} km away</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="material-icons">schedule</span>
+            <div class="detail-content">
+              <span class="detail-label">Type</span>
+              <span class="detail-value">{{ job.bookingType === 'ASAP' ? 'ASAP' : 'Scheduled' }}</span>
+            </div>
+          </div>
+          <div class="detail-item" *ngIf="job.scheduledStartTime">
+            <span class="material-icons">event</span>
+            <div class="detail-content">
+              <span class="detail-label">Scheduled Time</span>
+              <span class="detail-value">{{ job.scheduledStartTime | date: 'MMM d, y h:mm a' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-notes" *ngIf="job.notes">
+          <span class="material-icons">notes</span>
+          <p>{{ job.notes }}</p>
+        </div>
+
+        <div class="job-actions">
+          <button class="btn btn-secondary" (click)="rejectJob(job)">
+            <span class="material-icons">close</span>
+            Reject
+          </button>
+          <button class="btn btn-primary" (click)="acceptJob(job)">
+            <span class="material-icons">check_circle</span>
+            Accept Job
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Active Jobs Grid -->
+    <div class="jobs-grid" *ngIf="!isLoading && activeTab === 'active' && activeJobs.length > 0">
+      <div class="job-card" *ngFor="let job of activeJobs">
+        <div class="job-header">
+          <div class="service-info">
+            <h3>{{ job.service?.name }}</h3>
+            <span class="status-badge" [class.in-progress]="job.status === 'IN_PROGRESS'">
+              {{ job.status === 'IN_PROGRESS' ? 'In Progress' : 'Confirmed' }}
+            </span>
+          </div>
+          <div class="job-amount">
+            <span class="amount">₹{{ job.quotedAmount }}</span>
+          </div>
+        </div>
+
+        <div class="job-details">
+          <div class="detail-item">
+            <span class="material-icons">person</span>
+            <div class="detail-content">
+              <span class="detail-label">Customer</span>
+              <span class="detail-value">Customer #{{ job.customerId.substring(0, 8) }}</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="material-icons">location_on</span>
+            <div class="detail-content">
+              <span class="detail-label">Location</span>
+              <span class="detail-value">{{ job.address?.line1 }}, {{ job.address?.city }}</span>
+            </div>
+          </div>
+          <div class="detail-item" *ngIf="job.scheduledStartTime">
+            <span class="material-icons">event</span>
+            <div class="detail-content">
+              <span class="detail-label">Scheduled Time</span>
+              <span class="detail-value">{{ job.scheduledStartTime | date: 'MMM d, y h:mm a' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-actions">
+          <a class="btn btn-primary btn-block" [routerLink]="['/expert/jobs', job.id]">
+            <span class="material-icons">visibility</span>
+            View Details & Start
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty States -->
+    <div class="empty-state" *ngIf="!isLoading && activeTab === 'available' && availableJobs.length === 0">
+      <span class="material-icons empty-icon">work_off</span>
+      <h2>No Jobs Available</h2>
+      <p>Check back later for new job opportunities</p>
+      <button class="btn btn-primary" routerLink="/expert/dashboard">Back to Dashboard</button>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && activeTab === 'active' && activeJobs.length === 0">
+      <span class="material-icons empty-icon">assignment_late</span>
+      <h2>No Active Jobs</h2>
+      <p>You haven't accepted any jobs yet.</p>
+      <button class="btn btn-primary" (click)="activeTab = 'available'">View Available Jobs</button>
+    </div>
+  </div>
+</div>

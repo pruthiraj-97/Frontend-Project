@@ -1,0 +1,184 @@
+<div class="job-details-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/expert/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate Expert</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/expert/dashboard">Dashboard</a>
+        <a routerLink="/expert/jobs" class="active">Jobs</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Job Details</h1>
+      <a routerLink="/expert/jobs" class="back-link">
+        <span class="material-icons">arrow_back</span>
+        Back to Jobs
+      </a>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && booking" class="job-content">
+      <!-- Status Banner -->
+      <div class="status-banner" [class.in-progress]="booking.status === 'IN_PROGRESS'" 
+           [class.confirmed]="booking.status === 'CONFIRMED'">
+        <span class="material-icons">{{ booking.status === 'IN_PROGRESS' ? 'play_circle' : 'check_circle' }}</span>
+        <span>{{ booking.status === 'IN_PROGRESS' ? 'Job In Progress' : 'Job Confirmed' }}</span>
+      </div>
+
+      <!-- Customer Info -->
+      <div class="customer-card">
+        <h2>Customer Information</h2>
+        <div class="customer-info">
+          <div class="customer-avatar">
+            <span class="material-icons">account_circle</span>
+          </div>
+          <div class="customer-details">
+            <h3>{{ customer?.fullName }}</h3>
+            <p>{{ customer?.phone }}</p>
+            <p>{{ customer?.email }}</p>
+          </div>
+          <button class="btn btn-icon" (click)="callCustomer()">
+            <span class="material-icons">call</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Service Details -->
+      <div class="service-card">
+        <h2>Service Details</h2>
+        <div class="service-info">
+          <div class="info-row">
+            <span class="material-icons">build</span>
+            <div>
+              <span class="label">Service</span>
+              <span class="value">{{ service?.name }}</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="material-icons">description</span>
+            <div>
+              <span class="label">Description</span>
+              <span class="value">{{ service?.description }}</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="material-icons">schedule</span>
+            <div>
+              <span class="label">Duration</span>
+              <span class="value">{{ booking.durationMinutes }} minutes</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="material-icons">payments</span>
+            <div>
+              <span class="label">Payment</span>
+              <span class="value amount">₹{{ booking.quotedAmount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location Details -->
+      <div class="location-card">
+        <h2>Service Location</h2>
+        <div class="location-info">
+          <div class="address-details">
+            <span class="material-icons">location_on</span>
+            <div>
+              <p class="address-line">{{ address?.line1 }}</p>
+              <p class="address-line" *ngIf="address?.line2">{{ address?.line2 }}</p>
+              <p class="address-city">{{ address?.city }}, {{ address?.state }} - {{ address?.postalCode }}</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" (click)="navigateToLocation()">
+            <span class="material-icons">navigation</span>
+            Navigate
+          </button>
+        </div>
+      </div>
+
+      <!-- Booking Info -->
+      <div class="booking-info-card">
+        <h2>Booking Information</h2>
+        <div class="booking-grid">
+          <div class="booking-item">
+            <span class="material-icons">confirmation_number</span>
+            <div>
+              <span class="label">Booking ID</span>
+              <span class="value">#{{ booking.id }}</span>
+            </div>
+          </div>
+          <div class="booking-item">
+            <span class="material-icons">event</span>
+            <div>
+              <span class="label">Scheduled Time</span>
+              <span class="value">{{ booking.scheduledStartTime | date: 'MMM d, y h:mm a' }}</span>
+            </div>
+          </div>
+          <div class="booking-item" *ngIf="booking.actualStartTime">
+            <span class="material-icons">play_arrow</span>
+            <div>
+              <span class="label">Started At</span>
+              <span class="value">{{ booking.actualStartTime | date: 'h:mm a' }}</span>
+            </div>
+          </div>
+          <div class="booking-item" *ngIf="booking.notes">
+            <span class="material-icons">notes</span>
+            <div>
+              <span class="label">Special Instructions</span>
+              <span class="value">{{ booking.notes }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-primary btn-large" *ngIf="booking.status === 'CONFIRMED'" (click)="startJob()">
+          <span class="material-icons">play_circle</span>
+          Start Job (Enter OTP)
+        </button>
+        <button class="btn btn-success btn-large" *ngIf="booking.status === 'IN_PROGRESS'" (click)="endJob()">
+          <span class="material-icons">check_circle</span>
+          End Job
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTP Modal -->
+  <div class="modal-overlay" *ngIf="showOtpModal" (click)="closeOtpModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Enter Customer OTP</h2>
+        <button class="close-btn" (click)="closeOtpModal()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Ask the customer for the OTP to start the job</p>
+        <input type="text" [(ngModel)]="otpInput" class="otp-input" placeholder="Enter 4-digit OTP" maxlength="4" />
+        <p class="otp-hint">Demo OTP: 1234</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeOtpModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="verifyOtpAndStart()" [disabled]="otpInput.length !== 4">
+          Verify & Start
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

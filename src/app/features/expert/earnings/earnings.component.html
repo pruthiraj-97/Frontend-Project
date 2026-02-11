@@ -1,0 +1,154 @@
+<div class="earnings-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/expert/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate Expert</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/expert/dashboard">Dashboard</a>
+        <a routerLink="/expert/jobs">Jobs</a>
+        <a routerLink="/expert/earnings" class="active">Earnings</a>
+        <a routerLink="/expert/availability">Availability</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Earnings & Payouts</h1>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && earnings">
+      <!-- Earnings Summary -->
+      <div class="earnings-summary">
+        <div class="summary-card total">
+          <div class="card-icon">
+            <span class="material-icons">account_balance_wallet</span>
+          </div>
+          <div class="card-content">
+            <span class="card-label">Total Earned</span>
+            <span class="card-value">₹{{ earnings.totalEarned }}</span>
+          </div>
+        </div>
+
+        <div class="summary-card pending">
+          <div class="card-icon">
+            <span class="material-icons">pending</span>
+          </div>
+          <div class="card-content">
+            <span class="card-label">Pending Payout</span>
+            <span class="card-value">₹{{ earnings.pendingAmount }}</span>
+          </div>
+        </div>
+
+        <div class="summary-card jobs">
+          <div class="card-icon">
+            <span class="material-icons">work</span>
+          </div>
+          <div class="card-content">
+            <span class="card-label">Completed Jobs</span>
+            <span class="card-value">{{ earnings.completedJobs }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Period Earnings -->
+      <div class="period-earnings">
+        <h2>Earnings Breakdown</h2>
+        <div class="period-grid">
+          <div class="period-card">
+            <span class="material-icons">today</span>
+            <div>
+              <span class="period-label">Today</span>
+              <span class="period-value">₹{{ todayEarnings }}</span>
+            </div>
+          </div>
+          <div class="period-card">
+            <span class="material-icons">date_range</span>
+            <div>
+              <span class="period-label">This Week</span>
+              <span class="period-value">₹{{ weekEarnings }}</span>
+            </div>
+          </div>
+          <div class="period-card">
+            <span class="material-icons">calendar_month</span>
+            <div>
+              <span class="period-label">This Month</span>
+              <span class="period-value">₹{{ monthEarnings }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payout Request -->
+      <div class="payout-request-card" *ngIf="earnings.pendingAmount > 0">
+        <div class="payout-info">
+          <h3>Request Payout</h3>
+          <p>You have ₹{{ earnings.pendingAmount }} available for payout</p>
+          <p class="payout-note">Minimum payout amount: ₹500</p>
+        </div>
+        <button class="btn btn-primary" (click)="requestPayout()" [disabled]="earnings.pendingAmount < 500">
+          <span class="material-icons">payment</span>
+          Request Payout
+        </button>
+      </div>
+
+      <!-- Payout History -->
+      <div class="payout-history">
+        <h2>Payout History</h2>
+        <div class="payouts-list" *ngIf="payouts.length > 0">
+          <div class="payout-item" *ngFor="let payout of payouts">
+            <div class="payout-icon">
+              <span class="material-icons" [class.success]="payout.status === 'COMPLETED'" 
+                    [class.pending]="payout.status === 'PENDING'">
+                {{ payout.status === 'COMPLETED' ? 'check_circle' : 'schedule' }}
+              </span>
+            </div>
+            <div class="payout-details">
+              <span class="payout-amount">₹{{ payout.amount }}</span>
+              <span class="payout-date">{{ payout.processedAt | date: 'MMM d, y' }}</span>
+            </div>
+            <div class="payout-status">
+              <span class="status-badge" [class.completed]="payout.status === 'COMPLETED'"
+                    [class.pending]="payout.status === 'PENDING'">
+                {{ payout.status }}
+              </span>
+              <span class="payout-method">{{ payout.method }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="empty-state" *ngIf="payouts.length === 0">
+          <span class="material-icons">receipt_long</span>
+          <p>No payout history yet</p>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="transactions-card">
+        <h2>Recent Transactions</h2>
+        <div class="transactions-list" *ngIf="recentBookings.length > 0">
+          <div class="transaction-item" *ngFor="let booking of recentBookings">
+            <div class="transaction-icon">
+              <span class="material-icons">receipt</span>
+            </div>
+            <div class="transaction-details">
+              <span class="transaction-id">Booking #{{ booking.id }}</span>
+              <span class="transaction-date">{{ booking.completedAt | date: 'MMM d, y h:mm a' }}</span>
+            </div>
+            <span class="transaction-amount">+₹{{ booking.quotedAmount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

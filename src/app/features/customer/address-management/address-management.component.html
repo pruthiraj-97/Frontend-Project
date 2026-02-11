@@ -1,0 +1,197 @@
+<div class="address-management-page">
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/">
+        <span class="material-icons logo-icon">home</span>
+        <span>HouseMate</span>
+      </div>
+      <nav class="nav">
+        <a routerLink="/customer/dashboard">Dashboard</a>
+        <a routerLink="/customer/book-service">Book Service</a>
+        <a routerLink="/customer/bookings">My Bookings</a>
+        <button class="btn btn-secondary btn-sm" (click)="goBack()">
+          <span class="material-icons">arrow_back</span>
+          Back
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">Manage Addresses</h1>
+      <button class="btn btn-primary" (click)="showAddForm()" *ngIf="!showAddressForm">
+        <span class="material-icons">add</span>
+        Add New Address
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Address Form -->
+    <div class="address-form-card" *ngIf="showAddressForm && !isLoading">
+      <div class="form-header">
+        <h3>{{ isEditMode ? 'Edit Address' : 'Add New Address' }}</h3>
+        <button class="btn-close" (click)="hideAddressForm()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      
+      <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Address Label *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="label"
+              placeholder="e.g., Home, Office, etc."
+            />
+            <div class="form-error" *ngIf="addressForm.get('label')?.invalid && addressForm.get('label')?.touched">
+              Label is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Address Line 1 *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="line1"
+              placeholder="House/Flat No., Building Name"
+            />
+            <div class="form-error" *ngIf="addressForm.get('line1')?.invalid && addressForm.get('line1')?.touched">
+              Address Line 1 is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Address Line 2</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="line2"
+              placeholder="Street, Area, Landmark (Optional)"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="city"
+              placeholder="City"
+            />
+            <div class="form-error" *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched">
+              City is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">State *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="state"
+              placeholder="State"
+            />
+            <div class="form-error" *ngIf="addressForm.get('state')?.invalid && addressForm.get('state')?.touched">
+              State is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">PIN Code *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="postalCode"
+              placeholder="6-digit PIN code"
+              maxlength="6"
+            />
+            <div class="form-error" *ngIf="addressForm.get('postalCode')?.invalid && addressForm.get('postalCode')?.touched">
+              Valid 6-digit PIN code is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="isDefault" />
+              <span>Set as default address</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="hideAddressForm()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <span class="material-icons">save</span>
+            {{ isEditMode ? 'Update Address' : 'Save Address' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Addresses List -->
+    <div class="addresses-grid" *ngIf="!isLoading && addresses.length > 0">
+      <div class="address-card" *ngFor="let address of addresses">
+        <div class="address-header">
+          <div class="address-label">
+            <span class="material-icons">location_on</span>
+            <span>{{ address.label }}</span>
+          </div>
+          <span class="default-badge" *ngIf="address.isDefault">Default</span>
+        </div>
+
+        <div class="address-body">
+          <p class="address-line">{{ address.line1 }}</p>
+          <p class="address-line" *ngIf="address.line2">{{ address.line2 }}</p>
+          <p class="address-line">{{ address.city }}, {{ address.state }} - {{ address.postalCode }}</p>
+        </div>
+
+        <div class="address-actions">
+          <button class="btn btn-secondary btn-sm" (click)="editAddress(address)">
+            <span class="material-icons">edit</span>
+            Edit
+          </button>
+          <button class="btn btn-secondary btn-sm" (click)="setDefaultAddress(address.id)" *ngIf="!address.isDefault">
+            <span class="material-icons">check_circle</span>
+            Set Default
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAddress(address.id)">
+            <span class="material-icons">delete</span>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && addresses.length === 0 && !showAddressForm">
+      <span class="material-icons empty-icon">location_off</span>
+      <h3>No Addresses Found</h3>
+      <p>Add your first address to start booking services</p>
+      <button class="btn btn-primary" (click)="showAddForm()">
+        <span class="material-icons">add</span>
+        Add Address
+      </button>
+    </div>
+  </div>
+</div>
+

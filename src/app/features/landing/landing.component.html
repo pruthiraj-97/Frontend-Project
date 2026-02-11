@@ -1,0 +1,100 @@
+<div class="landing-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">🏠</span>
+          <span class="logo-text">HouseMate</span>
+        </div>
+        <nav class="nav">
+          <a routerLink="/customer/login" class="nav-link">Customer Login</a>
+          <a routerLink="/expert/login" class="nav-link">Expert Login</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="hero-subtitle">ON DEMAND</p>
+          <h1 class="hero-title">TRUSTED HOME SERVICES</h1>
+          <p class="hero-description">
+            Connect with verified, trained home-service experts for ASAP or scheduled
+            services. Fast, transparent, and reliable.
+          </p>
+          
+          <!-- Service Chips -->
+          <div class="service-chips">
+            <button 
+              *ngFor="let service of services"
+              class="service-chip"
+              [class.active]="service === selectedService"
+              (click)="selectService(service)">
+              {{ service }}
+            </button>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="cta-buttons">
+            <button class="btn btn-primary btn-large" (click)="navigateToBookService()">
+              BOOK SERVICE
+            </button>
+            <button class="btn btn-secondary btn-large" (click)="navigateToBecomeExpert()">
+              BECOME AN EXPERT
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <div class="illustration">
+            <div class="character">👩‍🔧</div>
+            <div class="tools">🧹 🔧 🪛</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" (click)="scrollToFeatures()">
+        <span class="scroll-text">Scroll</span>
+        <span class="scroll-arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Why Choose HouseMate?</h2>
+      
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon">
+            <span class="material-icons">{{ feature.icon }}</span>
+          </div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <button class="btn btn-primary" (click)="navigateToBookService()">
+          Book Service
+        </button>
+        <button class="btn btn-secondary" (click)="navigateToBecomeExpert()">
+          Become an Expert
+        </button>
+        <p class="copyright">© 2026 HouseMate. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+

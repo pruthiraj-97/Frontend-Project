@@ -1,0 +1,104 @@
+<div class="availability-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/expert/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate Expert</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/expert/dashboard">Dashboard</a>
+        <a routerLink="/expert/jobs">Jobs</a>
+        <a routerLink="/expert/earnings">Earnings</a>
+        <a routerLink="/expert/availability" class="active">Availability</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Manage Availability</h1>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && expertProfile">
+      <!-- Online/Offline Toggle -->
+      <div class="status-card">
+        <div class="status-header">
+          <div>
+            <h2>Current Status</h2>
+            <p>Toggle your availability to receive job offers</p>
+          </div>
+          <div class="status-toggle">
+            <div class="toggle-switch" [class.active]="expertProfile.onlineStatus === 'ONLINE'" (click)="toggleAvailability()">
+              <div class="toggle-slider"></div>
+            </div>
+            <span class="status-label" [class.online]="expertProfile.onlineStatus === 'ONLINE'">
+              {{ expertProfile.onlineStatus === 'ONLINE' ? 'ONLINE' : 'OFFLINE' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Working Hours -->
+      <div class="working-hours-card">
+        <h2>Working Hours</h2>
+        <p class="subtitle">Set your available hours for each day of the week</p>
+
+        <div class="days-list">
+          <div class="day-row" *ngFor="let day of weekDays">
+            <div class="day-header">
+              <label class="checkbox-label">
+                <input type="checkbox" [checked]="workingHours[day].enabled" (change)="toggleDayEnabled(day)" />
+                <span class="day-name">{{ day }}</span>
+              </label>
+            </div>
+            <div class="time-inputs" *ngIf="workingHours[day].enabled">
+              <div class="time-group">
+                <label>Start Time</label>
+                <input type="time" [(ngModel)]="workingHours[day].start" class="time-input" />
+              </div>
+              <span class="time-separator">to</span>
+              <div class="time-group">
+                <label>End Time</label>
+                <input type="time" [(ngModel)]="workingHours[day].end" class="time-input" />
+              </div>
+            </div>
+            <div class="day-off" *ngIf="!workingHours[day].enabled">
+              <span class="material-icons">block</span>
+              <span>Day Off</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn btn-primary" (click)="saveWorkingHours()">
+            <span class="material-icons">save</span>
+            Save Working Hours
+          </button>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <span class="material-icons">info</span>
+        <div>
+          <h3>How it works</h3>
+          <ul>
+            <li>Toggle your status to ONLINE to start receiving job offers</li>
+            <li>Set your working hours to let customers know when you're available</li>
+            <li>You can change your status anytime from the dashboard</li>
+            <li>Jobs will only be offered during your working hours</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

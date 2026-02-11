@@ -1,0 +1,448 @@
+.booking-details-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.header {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1976d2;
+  cursor: pointer;
+}
+
+.logo-icon {
+  font-size: 32px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #1976d2;
+  background: #e3f2fd;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.btn .material-icons {
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.error-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.error-icon {
+  font-size: 80px;
+  color: #f44336;
+  margin-bottom: 16px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32px 0 24px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.booking-id {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+.booking-status {
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-pending-payment {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-confirmed {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-in-progress {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.status-completed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-cancelled {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  padding-bottom: 48px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: #f5f7fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.card-header .material-icons {
+  font-size: 24px;
+  color: #667eea;
+}
+
+.card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-item .label {
+  font-weight: 500;
+  color: #666;
+}
+
+.detail-item .value {
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: right;
+}
+
+.address-details {
+  line-height: 1.6;
+}
+
+.address-label {
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+.expert-info {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.expert-avatar {
+  flex-shrink: 0;
+}
+
+.expert-avatar .material-icons {
+  font-size: 64px;
+  color: #667eea;
+}
+
+.expert-details h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.expert-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ff9800;
+  margin-bottom: 4px;
+}
+
+.expert-rating .material-icons {
+  font-size: 18px;
+}
+
+.expert-phone {
+  color: #666;
+  margin: 4px 0;
+}
+
+.expert-status {
+  margin-top: 8px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.online {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.expert-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.text-muted {
+  color: #999;
+}
+
+.text-small {
+  font-size: 13px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.payment-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 12px 0;
+}
+
+.payment-item.total {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1976d2;
+}
+
+.payment-status,
+.payment-method {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.payment-succeeded {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.payment-pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.payment-failed {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 48px;
+  width: 2px;
+  height: calc(100% - 16px);
+  background: #e0e0e0;
+}
+
+.timeline-item.completed:not(:last-child)::after {
+  background: #4caf50;
+}
+
+.timeline-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f5f7fa;
+}
+
+.timeline-item.completed .timeline-icon {
+  background: #e8f5e9;
+}
+
+.timeline-icon .material-icons {
+  font-size: 24px;
+  color: #999;
+}
+
+.timeline-item.completed .timeline-icon .material-icons {
+  color: #4caf50;
+}
+
+.timeline-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.timeline-content p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.rating-display {
+  text-align: center;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.stars .material-icons {
+  font-size: 28px;
+  color: #e0e0e0;
+}
+
+.stars .material-icons.filled {
+  color: #ff9800;
+}
+
+.rating-comment {
+  font-style: italic;
+  color: #666;
+  margin: 12px 0;
+}
+
+.rating-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-buttons .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+

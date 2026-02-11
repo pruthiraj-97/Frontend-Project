@@ -1,0 +1,980 @@
+{
+  "users": [
+    {
+      "id": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "phone": "+919876543210",
+      "email": "customer@example.com",
+      "fullName": "Asha Kumar",
+      "password": "Str0ngP@ssw0rd!",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+      "id": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "phone": "+919876543211",
+      "email": "expert@example.com",
+      "fullName": "Ravi Sharma",
+      "password": "Str0ngP@ssw0rd!",
+      "roles": [
+        "ROLE_EXPERT"
+      ],
+      "blocked": false,
+      "createdAt": "2026-01-10T10:00:00Z"
+    },
+    {
+      "id": "customer-2-id",
+      "phone": "+919876543213",
+      "email": "john@example.com",
+      "fullName": "John Doe",
+      "password": "Str0ngP@ssw0rd!",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-01-18T10:00:00Z"
+    },
+    {
+      "id": "b5ba6b17-1103-4b18-98de-29e539aa99fb",
+      "phone": "+919935408193",
+      "email": "lalsharabi95@gmail.com",
+      "fullName": "chamoshi",
+      "password": "Ranger@1",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-10T20:52:25.951Z"
+    },
+    {
+      "id": "eb55bb8f-c929-42c0-8172-240da6ced15d",
+      "phone": "+919696055353",
+      "email": "LALDHARABI@GMAIL.COM",
+      "fullName": "RADHE",
+      "password": "Radhe@12",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-10T20:59:39.592Z"
+    },
+    {
+      "id": "3deb82c4-037f-4878-ba72-618901d63dc4",
+      "phone": "+919692890120",
+      "email": "mohit@gmail.com",
+      "fullName": "Mohit Sharma",
+      "password": "mohit@097",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-10T21:37:12.961Z"
+    },
+    {
+      "id": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "phone": "+916867957968",
+      "email": "jayesh@gmail.com",
+      "fullName": "Jayesh",
+      "password": "123456789",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-11T04:24:29.635Z"
+    },
+    {
+      "id": "expert-1770784767684-scwrp41aw",
+      "phone": "+918687587959",
+      "email": "pankaj@gmail.com",
+      "fullName": "Pankaj",
+      "password": "123456789",
+      "roles": [
+        "ROLE_EXPERT"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-11T04:39:27.684Z"
+    },
+    {
+      "id": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "phone": "+919692890120",
+      "email": "pruthiraajpanda@gmail.com",
+      "fullName": "Pruthiraaj Panda",
+      "password": "pruthiraj@097",
+      "roles": [
+        "ROLE_CUSTOMER"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-11T06:47:55.645Z"
+    },
+    {
+      "id": "expert-1770792958375-nu5qv2l1w",
+      "phone": "+919937697022",
+      "email": "satya@gmail.com",
+      "fullName": "Satya Prakash",
+      "password": "satya@055",
+      "roles": [
+        "ROLE_EXPERT"
+      ],
+      "blocked": false,
+      "createdAt": "2026-02-11T06:55:58.375Z"
+    }
+  ],
+  "customerProfiles": [
+    {
+      "id": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "userId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "fullName": "Asha Kumar",
+      "phone": "+919876543210",
+      "email": "customer@example.com",
+      "preferredZoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ]
+    },
+    {
+      "id": "customer-2-id",
+      "userId": "customer-2-id",
+      "fullName": "John Doe",
+      "phone": "+919876543213",
+      "email": "john@example.com",
+      "preferredZoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ]
+    },
+    {
+      "id": "b5ba6b17-1103-4b18-98de-29e539aa99fb",
+      "userId": "b5ba6b17-1103-4b18-98de-29e539aa99fb",
+      "fullName": "chamoshi",
+      "phone": "+919935408193",
+      "email": "lalsharabi95@gmail.com",
+      "preferredZoneIds": []
+    },
+    {
+      "id": "eb55bb8f-c929-42c0-8172-240da6ced15d",
+      "userId": "eb55bb8f-c929-42c0-8172-240da6ced15d",
+      "fullName": "RADHE",
+      "phone": "+919696055353",
+      "email": "LALDHARABI@GMAIL.COM",
+      "preferredZoneIds": []
+    },
+    {
+      "id": "3deb82c4-037f-4878-ba72-618901d63dc4",
+      "userId": "3deb82c4-037f-4878-ba72-618901d63dc4",
+      "fullName": "Mohit Sharma",
+      "phone": "+919692890120",
+      "email": "mohit@gmail.com",
+      "preferredZoneIds": []
+    },
+    {
+      "id": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "userId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "fullName": "Jayesh",
+      "phone": "+916867957968",
+      "email": "jayesh@gmail.com",
+      "preferredZoneIds": []
+    },
+    {
+      "id": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "userId": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "fullName": "Pruthiraaj Panda",
+      "phone": "+919692890120",
+      "email": "pruthiraajpanda@gmail.com",
+      "preferredZoneIds": []
+    }
+  ],
+  "addresses": [
+    {
+      "id": "55555555-5555-5555-5555-555555555555",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "label": "Home",
+      "line1": "123 MG Road",
+      "line2": "Near Central Mall",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "postalCode": "560001",
+      "lat": 12.9716,
+      "lng": 77.5946,
+      "isDefault": true
+    },
+    {
+      "id": "address-2-id",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "label": "Office",
+      "line1": "45 Brigade Road",
+      "line2": "Tech Park",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "postalCode": "560025",
+      "lat": 12.9698,
+      "lng": 77.6025,
+      "isDefault": false
+    },
+    {
+      "id": "addr-1770784865424-laxsjiuls",
+      "label": "House No 640",
+      "line1": "Opposite shiv mandir",
+      "line2": null,
+      "city": "Hisar",
+      "state": "Haryana ",
+      "postalCode": "769696",
+      "isDefault": true,
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "lat": 12.9716,
+      "lng": 77.5946
+    }
+  ],
+  "zones": [
+    {
+      "id": "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+      "name": "Bangalore Central",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "isActive": true
+    },
+    {
+      "id": "zone-2-id",
+      "name": "Delhi NCR",
+      "city": "Delhi",
+      "state": "Delhi",
+      "isActive": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-1-id",
+      "name": "Cleaning",
+      "description": "Home cleaning services",
+      "iconUrl": "https://example.com/icons/cleaning.png",
+      "isActive": true
+    },
+    {
+      "id": "cat-2-id",
+      "name": "Plumbing",
+      "description": "Plumbing and water-related services",
+      "iconUrl": "https://example.com/icons/plumbing.png",
+      "isActive": true
+    },
+    {
+      "id": "cat-3-id",
+      "name": "Electrical",
+      "description": "Electrical repair and installation",
+      "iconUrl": "https://example.com/icons/electrical.png",
+      "isActive": true
+    }
+  ],
+  "services": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "categoryId": "cat-1-id",
+      "name": "Deep House Cleaning",
+      "description": "Complete house cleaning including all rooms, kitchen, and bathrooms",
+      "startingPrice": 299,
+      "currency": "INR",
+      "typicalDurationMinutes": 120,
+      "isActive": true,
+      "availableZones": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+        "zone-2-id"
+      ],
+      "addons": [
+        {
+          "id": "addon-1-id",
+          "name": "Balcony Cleaning",
+          "priceDelta": 50,
+          "durationDeltaMinutes": 15
+        },
+        {
+          "id": "addon-2-id",
+          "name": "Kitchen Deep Clean",
+          "priceDelta": 100,
+          "durationDeltaMinutes": 30
+        }
+      ]
+    },
+    {
+      "id": "service-2-id",
+      "categoryId": "cat-2-id",
+      "name": "Tap Repair",
+      "description": "Fix leaking or broken taps",
+      "startingPrice": 199,
+      "currency": "INR",
+      "typicalDurationMinutes": 45,
+      "isActive": true,
+      "availableZones": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "addons": [
+        {
+          "id": "addon-3-id",
+          "name": "Additional Tap",
+          "priceDelta": 50,
+          "durationDeltaMinutes": 15
+        }
+      ]
+    },
+    {
+      "id": "service-3-id",
+      "categoryId": "cat-3-id",
+      "name": "Fan Installation",
+      "description": "Install ceiling or wall fans",
+      "startingPrice": 299,
+      "currency": "INR",
+      "typicalDurationMinutes": 60,
+      "isActive": true,
+      "availableZones": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+        "zone-2-id"
+      ],
+      "addons": []
+    }
+  ],
+  "bookings": [
+    {
+      "id": "66666666-6666-6666-6666-666666666666",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "zoneId": "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+      "serviceId": "11111111-1111-1111-1111-111111111111",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "status": "COMPLETED",
+      "bookingType": "ASAP",
+      "durationMinutes": 60,
+      "addonIds": [
+        "addon-1-id"
+      ],
+      "quotedAmount": 349,
+      "currency": "INR",
+      "etaMinutes": 35,
+      "scheduledStartTime": null,
+      "actualStartTime": "2026-02-11T05:38:59.997Z",
+      "actualEndTime": "2026-02-11T05:39:04.719Z",
+      "notes": "Please bring cleaning supplies",
+      "otp": "1234",
+      "createdAt": "2026-01-20T12:02:10Z",
+      "updatedAt": "2026-01-20T12:05:00Z",
+      "completedAt": "2026-02-11T05:39:04.719Z"
+    },
+    {
+      "id": "booking-2-id",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "expertId": null,
+      "zoneId": "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+      "serviceId": "service-2-id",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "status": "PENDING_PAYMENT",
+      "bookingType": "SCHEDULED",
+      "durationMinutes": 45,
+      "addonIds": [],
+      "quotedAmount": 199,
+      "currency": "INR",
+      "etaMinutes": null,
+      "scheduledStartTime": "2026-01-30T14:00:00Z",
+      "actualStartTime": null,
+      "actualEndTime": null,
+      "notes": "",
+      "otp": "5678",
+      "createdAt": "2026-01-25T10:00:00Z",
+      "updatedAt": "2026-01-25T10:00:00Z"
+    },
+    {
+      "id": "booking-3-id",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "zoneId": "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+      "serviceId": "service-3-id",
+      "addressId": "address-2-id",
+      "status": "COMPLETED",
+      "bookingType": "ASAP",
+      "durationMinutes": 60,
+      "addonIds": [],
+      "quotedAmount": 299,
+      "currency": "INR",
+      "etaMinutes": null,
+      "scheduledStartTime": null,
+      "actualStartTime": "2026-01-18T11:00:00Z",
+      "actualEndTime": "2026-01-18T12:05:00Z",
+      "notes": "",
+      "otp": "9012",
+      "createdAt": "2026-01-18T10:30:00Z",
+      "updatedAt": "2026-01-18T12:05:00Z"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "service-2-id",
+      "addressId": "addr-1770784865424-laxsjiuls",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [
+        "addon-3-id"
+      ],
+      "quotedAmount": 249,
+      "status": "COMPLETED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T04:48:16.771Z",
+      "id": "YsxW0c8",
+      "updatedAt": "2026-02-11T04:54:02.650Z",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "actualStartTime": "2026-02-11T05:07:27.020Z",
+      "actualEndTime": "2026-02-11T05:07:45.423Z",
+      "completedAt": "2026-02-11T05:07:45.423Z"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "service-3-id",
+      "addressId": "address-2-id",
+      "bookingType": "SCHEDULED",
+      "scheduledDate": "2026-02-11",
+      "scheduledTime": "11:00",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "CANCELLED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T05:20:32.013Z",
+      "id": "gJud8QX",
+      "updatedAt": "2026-02-11T05:21:59.566Z"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "service-3-id",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "bookingType": "SCHEDULED",
+      "scheduledDate": "2026-02-11",
+      "scheduledTime": "11:00",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "COMPLETED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T05:22:52.928Z",
+      "id": "P10-dF2",
+      "updatedAt": "2026-02-11T05:23:01.282Z",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "actualStartTime": "2026-02-11T05:24:02.943Z",
+      "actualEndTime": "2026-02-11T05:24:10.035Z",
+      "completedAt": "2026-02-11T05:24:10.035Z"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "11111111-1111-1111-1111-111111111111",
+      "addressId": "address-2-id",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [
+        "addon-2-id",
+        "addon-1-id"
+      ],
+      "quotedAmount": 449,
+      "status": "CANCELLED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T05:30:45.256Z",
+      "id": "gX-G4yf",
+      "updatedAt": "2026-02-11T06:00:33.894Z",
+      "expertId": "expert-1770784767684-scwrp41aw"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "service-3-id",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "COMPLETED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T05:34:52.021Z",
+      "id": "TXhw9nh",
+      "updatedAt": "2026-02-11T05:36:27.729Z",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "actualStartTime": "2026-02-11T05:37:37.238Z",
+      "actualEndTime": "2026-02-11T05:38:15.784Z",
+      "completedAt": "2026-02-11T05:38:15.784Z"
+    },
+    {
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "11111111-1111-1111-1111-111111111111",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "Come early",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "COMPLETED",
+      "currency": "INR",
+      "createdAt": "2026-02-11T05:39:45.459Z",
+      "id": "Kvc-srv",
+      "updatedAt": "2026-02-11T05:56:04.650Z",
+      "scheduledStartTime": "2026-02-12T03:30:00.000Z",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "actualStartTime": "2026-02-11T05:56:42.789Z",
+      "actualEndTime": "2026-02-11T05:56:47.610Z",
+      "completedAt": "2026-02-11T05:56:47.610Z"
+    },
+    {
+      "id": "booking-1770789746901",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "serviceId": "service-3-id",
+      "addressId": "55555555-5555-5555-5555-555555555555",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "CANCELLED",
+      "currency": "INR",
+      "expertId": null,
+      "createdAt": "2026-02-11T06:02:26.901Z",
+      "updatedAt": "2026-02-11T06:02:37.872Z"
+    },
+    {
+      "id": "booking-1770792619400",
+      "customerId": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "serviceId": "11111111-1111-1111-1111-111111111111",
+      "addressId": "addr-1770784865424-laxsjiuls",
+      "bookingType": "ASAP",
+      "scheduledDate": "",
+      "scheduledTime": "",
+      "notes": "",
+      "addonIds": [],
+      "quotedAmount": 299,
+      "status": "CONFIRMED",
+      "currency": "INR",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "createdAt": "2026-02-11T06:50:19.400Z",
+      "updatedAt": "2026-02-11T06:50:28.829Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "77777777-7777-7777-7777-777777777777",
+      "bookingId": "66666666-6666-6666-6666-666666666666",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "amount": 349,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_123456789",
+      "receiptId": "receipt-1-id",
+      "createdAt": "2026-01-20T12:03:00Z",
+      "updatedAt": "2026-01-20T12:03:30Z"
+    },
+    {
+      "id": "payment-2-id",
+      "bookingId": "booking-3-id",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "CARD",
+      "transactionId": "txn_987654321",
+      "receiptId": "receipt-2-id",
+      "createdAt": "2026-01-18T10:35:00Z",
+      "updatedAt": "2026-01-18T10:35:15Z"
+    },
+    {
+      "id": "payment-1770785642604",
+      "bookingId": "YsxW0c8",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 249,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770785642604",
+      "createdAt": "2026-02-11T04:54:02.604Z",
+      "updatedAt": "2026-02-11T04:54:02.604Z"
+    },
+    {
+      "id": "payment-1770787240399",
+      "bookingId": "gJud8QX",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770787240399",
+      "createdAt": "2026-02-11T05:20:40.399Z",
+      "updatedAt": "2026-02-11T05:20:40.399Z"
+    },
+    {
+      "id": "payment-1770787381248",
+      "bookingId": "P10-dF2",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770787381248",
+      "createdAt": "2026-02-11T05:23:01.248Z",
+      "updatedAt": "2026-02-11T05:23:01.248Z"
+    },
+    {
+      "id": "payment-1770787876203",
+      "bookingId": "gX-G4yf",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 449,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770787876203",
+      "createdAt": "2026-02-11T05:31:16.203Z",
+      "updatedAt": "2026-02-11T05:31:16.203Z"
+    },
+    {
+      "id": "payment-1770788187678",
+      "bookingId": "TXhw9nh",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770788187678",
+      "createdAt": "2026-02-11T05:36:27.678Z",
+      "updatedAt": "2026-02-11T05:36:27.678Z"
+    },
+    {
+      "id": "payment-1770788823214",
+      "bookingId": "Kvc-srv",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 199,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770788823214",
+      "createdAt": "2026-02-11T05:47:03.214Z",
+      "updatedAt": "2026-02-11T05:47:03.214Z"
+    },
+    {
+      "id": "payment-1770789364601",
+      "bookingId": "Kvc-srv",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770789364601",
+      "createdAt": "2026-02-11T05:56:04.601Z",
+      "updatedAt": "2026-02-11T05:56:04.601Z"
+    },
+    {
+      "id": "payment-1770792628777",
+      "bookingId": "booking-1770792619400",
+      "customerId": "3d1b6271-09a6-41b9-8746-82f5a327e7b7",
+      "amount": 299,
+      "currency": "INR",
+      "status": "SUCCEEDED",
+      "method": "UPI",
+      "transactionId": "txn_1770792628777",
+      "createdAt": "2026-02-11T06:50:28.777Z",
+      "updatedAt": "2026-02-11T06:50:28.777Z"
+    }
+  ],
+  "receipts": [
+    {
+      "id": "receipt-1-id",
+      "bookingId": "66666666-6666-6666-6666-666666666666",
+      "paymentId": "77777777-7777-7777-7777-777777777777",
+      "amount": 349,
+      "currency": "INR",
+      "serviceName": "Deep House Cleaning",
+      "customerName": "Asha Kumar",
+      "expertName": "Ravi Sharma",
+      "issuedAt": "2026-01-20T12:03:30Z",
+      "breakdown": [
+        {
+          "label": "Base Service",
+          "amount": 299
+        },
+        {
+          "label": "Balcony Cleaning",
+          "amount": 50
+        }
+      ]
+    },
+    {
+      "id": "receipt-2-id",
+      "bookingId": "booking-3-id",
+      "paymentId": "payment-2-id",
+      "amount": 299,
+      "currency": "INR",
+      "serviceName": "Fan Installation",
+      "customerName": "Asha Kumar",
+      "expertName": "Ravi Sharma",
+      "issuedAt": "2026-01-18T10:35:15Z",
+      "breakdown": [
+        {
+          "label": "Base Service",
+          "amount": 299
+        }
+      ]
+    }
+  ],
+  "ratings": [
+    {
+      "id": "rating-1-id",
+      "bookingId": "booking-3-id",
+      "customerId": "7e8b6a2d-0c30-4c6d-a8df-9b8efb9a9b41",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "stars": 5,
+      "comment": "Excellent service! Very professional and quick.",
+      "createdAt": "2026-01-18T12:30:00Z"
+    },
+    {
+      "id": "rating-1770786761015",
+      "bookingId": "YsxW0c8",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "stars": 3,
+      "comment": "wonderful\n",
+      "createdAt": "2026-02-11T05:12:41.015Z"
+    },
+    {
+      "id": "rating-1770787503185",
+      "bookingId": "P10-dF2",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "stars": 5,
+      "comment": "Good work\n",
+      "createdAt": "2026-02-11T05:25:03.185Z"
+    },
+    {
+      "id": "rating-1770788319610",
+      "bookingId": "TXhw9nh",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "stars": 3,
+      "comment": "Good working",
+      "createdAt": "2026-02-11T05:38:39.610Z"
+    },
+    {
+      "id": "rating-1770789427095",
+      "bookingId": "Kvc-srv",
+      "customerId": "029fb6b1-5fcd-4dcd-806e-5f5f0add3f41",
+      "expertId": "expert-1770784767684-scwrp41aw",
+      "stars": 2,
+      "comment": "Good work done",
+      "createdAt": "2026-02-11T05:57:07.095Z"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "coupon-1-id",
+      "code": "FIRST50",
+      "description": "50 INR off on first booking",
+      "discountType": "FIXED",
+      "discountValue": 50,
+      "currency": "INR",
+      "minOrderValue": 200,
+      "maxDiscount": 50,
+      "validFrom": "2026-01-01T00:00:00Z",
+      "validUntil": "2026-12-31T23:59:59Z",
+      "usageLimit": 1,
+      "isActive": true,
+      "applicableZones": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+        "zone-2-id"
+      ],
+      "applicableServices": []
+    },
+    {
+      "id": "coupon-2-id",
+      "code": "CLEAN20",
+      "description": "20% off on cleaning services",
+      "discountType": "PERCENTAGE",
+      "discountValue": 20,
+      "currency": "INR",
+      "minOrderValue": 300,
+      "maxDiscount": 100,
+      "validFrom": "2026-01-01T00:00:00Z",
+      "validUntil": "2026-06-30T23:59:59Z",
+      "usageLimit": null,
+      "isActive": true,
+      "applicableZones": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "applicableServices": [
+        "11111111-1111-1111-1111-111111111111"
+      ]
+    }
+  ],
+  "discountRules": [
+    {
+      "id": "rule-1-id",
+      "name": "First Time Customer Discount",
+      "discountType": "PERCENTAGE",
+      "discountValue": 10,
+      "conditions": {
+        "firstTimeCustomer": true
+      },
+      "isActive": true
+    }
+  ],
+  "expertProfiles": [
+    {
+      "id": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "userId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "fullName": "Ravi Sharma",
+      "phone": "+919876543211",
+      "skills": [
+        "Cleaning",
+        "Plumbing",
+        "Electrical"
+      ],
+      "zoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "status": "APPROVED",
+      "onlineStatus": "OFFLINE",
+      "rating": 4.788535031847133,
+      "totalJobs": 157,
+      "createdAt": "2026-01-10T10:00:00Z"
+    },
+    {
+      "id": "expert-2-id",
+      "userId": "expert-2-user-id",
+      "fullName": "Amit Patel",
+      "phone": "+919876543214",
+      "skills": [
+        "Carpentry",
+        "Electrical"
+      ],
+      "zoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "status": "APPROVED",
+      "onlineStatus": "OFFLINE",
+      "rating": 4.6,
+      "totalJobs": 89,
+      "createdAt": "2026-01-12T10:00:00Z"
+    },
+    {
+      "id": "expert-1770784767684-scwrp41aw",
+      "userId": "expert-1770784767684-scwrp41aw",
+      "fullName": "Pankaj",
+      "phone": "+918687587959",
+      "skills": [
+        "Cleaning",
+        "Plumbing",
+        "Electrical"
+      ],
+      "zoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "status": "PENDING",
+      "onlineStatus": "ONLINE",
+      "rating": 3.3333333333333335,
+      "totalJobs": 3,
+      "createdAt": "2026-02-11T04:39:27.701Z"
+    },
+    {
+      "id": "expert-1770792958375-nu5qv2l1w",
+      "userId": "expert-1770792958375-nu5qv2l1w",
+      "fullName": "Satya Prakash",
+      "phone": "+919937697022",
+      "skills": [
+        "Cleaning",
+        "Plumbing",
+        "Electrical"
+      ],
+      "zoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "status": "PENDING",
+      "onlineStatus": "ONLINE",
+      "rating": 0,
+      "totalJobs": 0,
+      "createdAt": "2026-02-11T06:55:58.407Z"
+    }
+  ],
+  "expertOnboarding": [
+    {
+      "id": "onboarding-1-id",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "fullName": "Ravi Sharma",
+      "phone": "+919876543211",
+      "skills": [
+        "Cleaning",
+        "Plumbing",
+        "Electrical"
+      ],
+      "zoneIds": [
+        "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111"
+      ],
+      "status": "APPROVED",
+      "reason": null,
+      "submittedAt": "2026-01-10T10:00:00Z",
+      "reviewedAt": "2026-01-10T15:00:00Z"
+    },
+    {
+      "id": "onboarding-2-id",
+      "expertId": "pending-expert-id",
+      "fullName": "Suresh Kumar",
+      "phone": "+919876543215",
+      "skills": [
+        "Plumbing"
+      ],
+      "zoneIds": [
+        "zone-2-id"
+      ],
+      "status": "PENDING",
+      "reason": null,
+      "submittedAt": "2026-01-28T10:00:00Z",
+      "reviewedAt": null
+    }
+  ],
+  "expertJobs": [
+    {
+      "id": "66666666-6666-6666-6666-666666666666",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "bookingId": "66666666-6666-6666-6666-666666666666",
+      "zoneId": "a3c62d2c-1d4b-4a26-9d0c-b6c1a7a7a111",
+      "serviceId": "11111111-1111-1111-1111-111111111111",
+      "addressHint": "123 MG Road, Near Central Mall",
+      "quotedAmount": 349,
+      "currency": "INR",
+      "status": "ACCEPTED",
+      "expiresAt": "2026-01-20T12:15:00Z",
+      "acceptedAt": "2026-01-20T12:05:00Z"
+    }
+  ],
+  "expertEarnings": [
+    {
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "totalEarned": 45678,
+      "currency": "INR",
+      "completedJobs": 156,
+      "pendingAmount": 1234,
+      "lastPayoutAt": "2026-01-15T00:00:00Z"
+    }
+  ],
+  "expertPayouts": [
+    {
+      "id": "payout-1-id",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "amount": 5000,
+      "currency": "INR",
+      "status": "COMPLETED",
+      "method": "BANK_TRANSFER",
+      "transactionId": "payout_txn_123",
+      "processedAt": "2026-01-15T00:00:00Z"
+    },
+    {
+      "id": "payout-2-id",
+      "expertId": "8f9c7b3e-1d41-5d7e-b9eg-0c9fgc0c0c52",
+      "amount": 4500,
+      "currency": "INR",
+      "status": "COMPLETED",
+      "method": "BANK_TRANSFER",
+      "transactionId": "payout_txn_124",
+      "processedAt": "2026-01-08T00:00:00Z"
+    }
+  ]
+}

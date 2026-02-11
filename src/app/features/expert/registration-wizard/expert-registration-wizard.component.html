@@ -1,0 +1,247 @@
+<div class="registration-page">
+  <div class="container">
+    <div class="registration-card">
+      <div class="card-header">
+        <h1>Expert Registration</h1>
+        <p>Join HouseMate as a Service Expert</p>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="progress-indicator">
+        <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+          <div class="step-number">1</div>
+          <div class="step-label">Personal Info</div>
+        </div>
+        <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+          <div class="step-number">2</div>
+          <div class="step-label">Skills & Zones</div>
+        </div>
+        <div class="step" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+          <div class="step-number">3</div>
+          <div class="step-label">ID Verification</div>
+        </div>
+        <div class="step" [class.active]="currentStep >= 4">
+          <div class="step-number">4</div>
+          <div class="step-label">Bank Details</div>
+        </div>
+      </div>
+
+      <!-- Step 1: Personal Information -->
+      <form [formGroup]="personalInfoForm" *ngIf="currentStep === 1">
+        <h3>Personal Information</h3>
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-control" formControlName="fullName" placeholder="Enter your full name" />
+          <div class="form-error" *ngIf="personalInfoForm.get('fullName')?.invalid && personalInfoForm.get('fullName')?.touched">
+            Full name is required (min 3 characters)
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Mobile Number *</label>
+            <div class="input-with-prefix">
+              <span class="prefix">+91</span>
+              <input type="tel" class="form-control" formControlName="mobileNumber" placeholder="10-digit mobile number" maxlength="10" />
+            </div>
+            <div class="form-error" *ngIf="personalInfoForm.get('mobileNumber')?.invalid && personalInfoForm.get('mobileNumber')?.touched">
+              Valid 10-digit mobile number is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date of Birth *</label>
+            <input type="date" class="form-control" formControlName="dateOfBirth" />
+            <div class="form-error" *ngIf="personalInfoForm.get('dateOfBirth')?.invalid && personalInfoForm.get('dateOfBirth')?.touched">
+              Date of birth is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Address *</label>
+          <textarea class="form-control" formControlName="address" rows="2" placeholder="Enter your full address"></textarea>
+          <div class="form-error" *ngIf="personalInfoForm.get('address')?.invalid && personalInfoForm.get('address')?.touched">
+            Address is required (min 10 characters)
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City *</label>
+            <input type="text" class="form-control" formControlName="city" placeholder="City" />
+            <div class="form-error" *ngIf="personalInfoForm.get('city')?.invalid && personalInfoForm.get('city')?.touched">
+              City is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">State *</label>
+            <input type="text" class="form-control" formControlName="state" placeholder="State" />
+            <div class="form-error" *ngIf="personalInfoForm.get('state')?.invalid && personalInfoForm.get('state')?.touched">
+              State is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">PIN Code *</label>
+            <input type="text" class="form-control" formControlName="pinCode" placeholder="6-digit PIN" maxlength="6" />
+            <div class="form-error" *ngIf="personalInfoForm.get('pinCode')?.invalid && personalInfoForm.get('pinCode')?.touched">
+              Valid 6-digit PIN code is required
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Step 2: Service Profile -->
+      <form [formGroup]="serviceProfileForm" *ngIf="currentStep === 2">
+        <h3>Service Profile</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="your.email@example.com" />
+          <div class="form-error" *ngIf="serviceProfileForm.get('email')?.invalid && serviceProfileForm.get('email')?.touched">
+            Valid email is required
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Min 8 characters" />
+            <div class="form-error" *ngIf="serviceProfileForm.get('password')?.invalid && serviceProfileForm.get('password')?.touched">
+              Password must be at least 8 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm Password *</label>
+            <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" />
+            <div class="form-error" *ngIf="serviceProfileForm.errors?.['passwordMismatch'] && serviceProfileForm.get('confirmPassword')?.touched">
+              Passwords do not match
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Years of Experience *</label>
+          <input type="number" class="form-control" formControlName="experience" placeholder="Years" min="0" />
+          <div class="form-error" *ngIf="serviceProfileForm.get('experience')?.invalid && serviceProfileForm.get('experience')?.touched">
+            Experience is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Your Skills * (Choose at least one)</label>
+          <div class="skills-grid">
+            <div class="skill-chip" *ngFor="let skill of availableSkills" 
+                 [class.selected]="isSkillSelected(skill)"
+                 (click)="toggleSkill(skill)">
+              <span class="material-icons">{{ isSkillSelected(skill) ? 'check_circle' : 'radio_button_unchecked' }}</span>
+              <span>{{ skill }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Service Zones * (Choose at least one)</label>
+          <div class="zones-grid">
+            <div class="zone-chip" *ngFor="let zone of availableZones"
+                 [class.selected]="isZoneSelected(zone.id)"
+                 (click)="toggleZone(zone.id)">
+              <span class="material-icons">{{ isZoneSelected(zone.id) ? 'check_circle' : 'radio_button_unchecked' }}</span>
+              <span>{{ zone.name }}, {{ zone.city }}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Step 3: ID Verification -->
+      <form [formGroup]="idVerificationForm" *ngIf="currentStep === 3">
+        <h3>ID Verification</h3>
+
+        <div class="form-group">
+          <label class="form-label">ID Type *</label>
+          <select class="form-control" formControlName="idType">
+            <option value="">Select ID Type</option>
+            <option value="AADHAAR">Aadhaar Card</option>
+            <option value="PAN">PAN Card</option>
+            <option value="DRIVING_LICENSE">Driving License</option>
+            <option value="VOTER_ID">Voter ID</option>
+          </select>
+          <div class="form-error" *ngIf="idVerificationForm.get('idType')?.invalid && idVerificationForm.get('idType')?.touched">
+            ID type is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ID Number *</label>
+          <input type="text" class="form-control" formControlName="idNumber" placeholder="Enter ID number" />
+          <div class="form-error" *ngIf="idVerificationForm.get('idNumber')?.invalid && idVerificationForm.get('idNumber')?.touched">
+            ID number is required
+          </div>
+        </div>
+
+        <div class="info-box">
+          <span class="material-icons">info</span>
+          <p>Your ID will be verified by our team. You will be notified once your profile is approved.</p>
+        </div>
+      </form>
+
+      <!-- Step 4: Bank Details -->
+      <form [formGroup]="bankDetailsForm" *ngIf="currentStep === 4">
+        <h3>Bank Details</h3>
+
+        <div class="form-group">
+          <label class="form-label">Account Holder Name *</label>
+          <input type="text" class="form-control" formControlName="accountHolderName" placeholder="As per bank records" />
+          <div class="form-error" *ngIf="bankDetailsForm.get('accountHolderName')?.invalid && bankDetailsForm.get('accountHolderName')?.touched">
+            Account holder name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Account Number *</label>
+          <input type="text" class="form-control" formControlName="accountNumber" placeholder="9-18 digit account number" />
+          <div class="form-error" *ngIf="bankDetailsForm.get('accountNumber')?.invalid && bankDetailsForm.get('accountNumber')?.touched">
+            Valid account number is required (9-18 digits)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">IFSC Code *</label>
+          <input type="text" class="form-control" formControlName="ifscCode" placeholder="e.g., SBIN0001234" style="text-transform: uppercase;" />
+          <div class="form-error" *ngIf="bankDetailsForm.get('ifscCode')?.invalid && bankDetailsForm.get('ifscCode')?.touched">
+            Valid IFSC code is required
+          </div>
+        </div>
+
+        <div class="info-box">
+          <span class="material-icons">info</span>
+          <p>Your earnings will be transferred to this bank account. Please ensure the details are correct.</p>
+        </div>
+      </form>
+
+      <!-- Navigation Buttons -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="previousStep()" *ngIf="currentStep > 1">
+          <span class="material-icons">arrow_back</span>
+          Previous
+        </button>
+        <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < totalSteps">
+          Next
+          <span class="material-icons">arrow_forward</span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submitRegistration()" *ngIf="currentStep === totalSteps">
+          <span class="material-icons">check_circle</span>
+          Submit Registration
+        </button>
+      </div>
+
+      <div class="login-link">
+        <p>Already have an account? <a routerLink="/expert/login">Login here</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+

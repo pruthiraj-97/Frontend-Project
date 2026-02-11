@@ -1,0 +1,142 @@
+<div class="modify-booking-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/customer/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/customer/dashboard">Dashboard</a>
+        <a routerLink="/customer/bookings">My Bookings</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Modify Booking</h1>
+      <a routerLink="/customer/bookings" class="back-link">
+        <span class="material-icons">arrow_back</span>
+        Back to Bookings
+      </a>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && booking" class="content">
+      <div class="booking-info-card">
+        <h2>Booking #{{ booking.id }}</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="material-icons">event</span>
+            <div>
+              <span class="label">Current Date</span>
+              <span class="value">{{ booking.scheduledStartTime | date: 'MMM d, y h:mm a' }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">payments</span>
+            <div>
+              <span class="label">Amount</span>
+              <span class="value">₹{{ booking.quotedAmount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modify-form-card">
+        <h2>Reschedule / Modify Booking</h2>
+        <form [formGroup]="modifyForm" (ngSubmit)="updateBooking()">
+
+          <div class="alert alert-warning" *ngIf="paymentWarning">
+            <span class="material-icons">info</span>
+            <span>Changing the service will require a new payment. The previous payment will be refunded within a few
+              hours.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Service</label>
+              <select formControlName="serviceId" class="form-control">
+                <option *ngFor="let s of services" [value]="s.id">
+                  {{ s.name }} (₹{{ s.basePrice || s.startingPrice }})
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Expert Preference</label>
+              <select formControlName="expertId" class="form-control">
+                <option value="">Any Available Expert</option>
+                <option *ngFor="let e of experts" [value]="e.userId">
+                  {{ e.fullName }} ({{ e.rating }} ★)
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>New Date</label>
+              <input type="date" formControlName="scheduledDate" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>New Time</label>
+              <input type="time" formControlName="scheduledTime" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Additional Notes (Optional)</label>
+            <textarea formControlName="notes" class="form-control" rows="3"
+              placeholder="Any special instructions..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="modifyForm.invalid">
+              <span class="material-icons">update</span>
+              {{ paymentWarning ? 'Update & Pay Difference' : 'Update Booking' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="cancel-section">
+        <h2>Cancel Booking</h2>
+        <p>If you need to cancel this booking, please note that refunds will be processed within 5-7 business days.</p>
+        <button class="btn btn-danger" (click)="openCancelModal()">
+          <span class="material-icons">cancel</span>
+          Cancel Booking
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Modal -->
+  <div class="modal-overlay" *ngIf="showCancelModal" (click)="closeCancelModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Cancel Booking</h2>
+        <button class="close-btn" (click)="closeCancelModal()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Please tell us why you're cancelling:</p>
+        <textarea [(ngModel)]="cancelReason" class="form-control" rows="4"
+          placeholder="Reason for cancellation..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeCancelModal()">Keep Booking</button>
+        <button class="btn btn-danger" (click)="cancelBooking()" [disabled]="!cancelReason">
+          Confirm Cancellation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

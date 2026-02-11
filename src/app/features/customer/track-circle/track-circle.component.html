@@ -1,0 +1,146 @@
+<div class="track-page">
+  <div class="header">
+    <div class="container">
+      <div class="logo" routerLink="/customer/dashboard">
+        <span class="material-icons logo-icon">home_repair_service</span>
+        <span>HouseMate</span>
+      </div>
+      <div class="nav">
+        <a routerLink="/customer/dashboard">Dashboard</a>
+        <a routerLink="/customer/bookings">My Bookings</a>
+        <button class="btn btn-secondary btn-sm" (click)="logout()">
+          <span class="material-icons">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Track Expert</h1>
+      <a [routerLink]="['/customer/bookings', booking?.id]" class="back-link">
+        <span class="material-icons">arrow_back</span>
+        Back to Booking
+      </a>
+    </div>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading && booking" class="track-content">
+      <!-- Map Section -->
+      <div class="map-card">
+        <div class="map-placeholder">
+          <span class="material-icons map-icon">map</span>
+          <div class="location-markers">
+            <div class="marker expert-marker">
+              <span class="material-icons">person_pin_circle</span>
+              <span class="marker-label">Expert</span>
+            </div>
+            <div class="marker customer-marker">
+              <span class="material-icons">home</span>
+              <span class="marker-label">Your Location</span>
+            </div>
+          </div>
+          <div class="route-line"></div>
+        </div>
+        
+        <div class="map-overlay">
+          <div class="eta-card">
+            <div class="eta-icon">
+              <span class="material-icons">schedule</span>
+            </div>
+            <div class="eta-info">
+              <span class="eta-label">Estimated Arrival</span>
+              <span class="eta-time">{{ estimatedTime }} mins</span>
+            </div>
+          </div>
+          <div class="distance-badge">
+            <span class="material-icons">near_me</span>
+            {{ distance }} km away
+          </div>
+        </div>
+      </div>
+
+      <!-- Expert Info Card -->
+      <div class="expert-info-card" *ngIf="expert">
+        <div class="expert-avatar">
+          <span class="material-icons">account_circle</span>
+        </div>
+        <div class="expert-details">
+          <h3>{{ expert.fullName }}</h3>
+          <div class="expert-meta">
+            <span class="rating">
+              <span class="material-icons">star</span>
+              {{ expert.rating || 4.5 }}
+            </span>
+            <span class="experience">{{ expert.experienceYears || 5 }}+ years exp</span>
+          </div>
+          <p class="expert-skills">{{ expert.skills?.join(', ') || 'Professional Expert' }}</p>
+        </div>
+        <div class="expert-actions">
+          <button class="btn btn-icon" (click)="callExpert()">
+            <span class="material-icons">call</span>
+          </button>
+          <button class="btn btn-icon" (click)="shareLocation()">
+            <span class="material-icons">share_location</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Service Info -->
+      <div class="service-info-card">
+        <h3>Service Details</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="material-icons">build</span>
+            <div>
+              <span class="label">Service</span>
+              <span class="value">{{ service?.name }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">location_on</span>
+            <div>
+              <span class="label">Address</span>
+              <span class="value">{{ address?.line1 }}, {{ address?.city }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">schedule</span>
+            <div>
+              <span class="label">Scheduled Time</span>
+              <span class="value">{{ booking.scheduledStartTime | date: 'h:mm a' }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">payments</span>
+            <div>
+              <span class="label">Amount</span>
+              <span class="value">₹{{ booking.quotedAmount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracking Timeline -->
+      <div class="timeline-card">
+        <h3>Tracking Status</h3>
+        <div class="timeline">
+          <div class="timeline-item" *ngFor="let step of trackingSteps" [class.completed]="step.completed">
+            <div class="timeline-marker">
+              <span class="material-icons">{{ step.completed ? 'check_circle' : 'radio_button_unchecked' }}</span>
+            </div>
+            <div class="timeline-content">
+              <span class="timeline-label">{{ step.label }}</span>
+              <span class="timeline-time">{{ step.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

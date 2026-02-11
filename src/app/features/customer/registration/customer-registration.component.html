@@ -1,0 +1,259 @@
+<div class="registration-page">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🏠</span>
+        <span class="logo-text">HouseMate</span>
+      </div>
+      <div class="header-actions">
+        <a routerLink="/customer/login" class="link">Customer Login</a>
+        <a routerLink="/expert/login" class="link">Expert Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="registration-container">
+    <div class="registration-card">
+      <!-- Title Section -->
+      <div class="title-section">
+        <p class="new-user-text">New User?</p>
+        <h1 class="title">REGISTER NOW!</h1>
+        <p class="subtitle">
+          To receive quick verified, trained home-service experts for ASAP or scheduled services. Fast, transparent, and reliable.
+        </p>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="progress-steps">
+        <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+          <div class="step-circle">
+            <span class="step-number">1</span>
+          </div>
+          <span class="step-label">Personal Information</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 1"></div>
+        <div class="step" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+          <div class="step-circle">
+            <span class="step-number">2</span>
+          </div>
+          <span class="step-label">Service Profile</span>
+        </div>
+        <div class="step-line" [class.active]="currentStep > 2"></div>
+        <div class="step" [class.active]="currentStep >= 3">
+          <div class="step-circle">
+            <span class="step-number">3</span>
+          </div>
+          <span class="step-label">ID Verification</span>
+        </div>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="info-banner">
+        <span class="material-icons">info</span>
+        <p>Ensure all information matches your identity documents to enable verification.</p>
+      </div>
+
+      <!-- Step 1: Personal Information -->
+      <form *ngIf="currentStep === 1" [formGroup]="personalInfoForm" class="form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="fullName"
+              placeholder="Enter your full name as per ID">
+            <div class="form-error" *ngIf="personalInfoForm.get('fullName')?.touched && personalInfoForm.get('fullName')?.errors">
+              <span *ngIf="personalInfoForm.get('fullName')?.errors?.['required']">Full name is required</span>
+              <span *ngIf="personalInfoForm.get('fullName')?.errors?.['minlength']">Name must be at least 3 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date of Birth *</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              formControlName="dateOfBirth">
+            <div class="form-error" *ngIf="personalInfoForm.get('dateOfBirth')?.touched && personalInfoForm.get('dateOfBirth')?.errors?.['required']">
+              Date of birth is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Mobile Number *</label>
+            <div class="phone-input">
+              <span class="country-code">+91</span>
+              <input 
+                type="tel" 
+                class="form-control" 
+                formControlName="mobileNumber"
+                placeholder="9876543210">
+            </div>
+            <div class="form-error" *ngIf="personalInfoForm.get('mobileNumber')?.touched && personalInfoForm.get('mobileNumber')?.errors">
+              <span *ngIf="personalInfoForm.get('mobileNumber')?.errors?.['required']">Mobile number is required</span>
+              <span *ngIf="personalInfoForm.get('mobileNumber')?.errors?.['pattern']">Enter valid 10-digit mobile number</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Complete Address *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="address"
+            placeholder="Household No., Building Name, Street, Landmark">
+          <div class="form-error" *ngIf="personalInfoForm.get('address')?.touched && personalInfoForm.get('address')?.errors">
+            <span *ngIf="personalInfoForm.get('address')?.errors?.['required']">Address is required</span>
+            <span *ngIf="personalInfoForm.get('address')?.errors?.['minlength']">Address must be at least 10 characters</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">City *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="city"
+              placeholder="e.g., Mumbai">
+            <div class="form-error" *ngIf="personalInfoForm.get('city')?.touched && personalInfoForm.get('city')?.errors?.['required']">
+              City is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">State *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="state"
+              placeholder="e.g., Maharashtra">
+            <div class="form-error" *ngIf="personalInfoForm.get('state')?.touched && personalInfoForm.get('state')?.errors?.['required']">
+              State is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">PIN Code *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="pinCode"
+            placeholder="400001">
+          <div class="form-error" *ngIf="personalInfoForm.get('pinCode')?.touched && personalInfoForm.get('pinCode')?.errors">
+            <span *ngIf="personalInfoForm.get('pinCode')?.errors?.['required']">PIN code is required</span>
+            <span *ngIf="personalInfoForm.get('pinCode')?.errors?.['pattern']">Enter valid 6-digit PIN code</span>
+          </div>
+        </div>
+      </form>
+
+      <!-- Step 2: Service Profile -->
+      <form *ngIf="currentStep === 2" [formGroup]="serviceProfileForm" class="form">
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="your.email@example.com">
+          <div class="form-error" *ngIf="serviceProfileForm.get('email')?.touched && serviceProfileForm.get('email')?.errors">
+            <span *ngIf="serviceProfileForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="serviceProfileForm.get('email')?.errors?.['email']">Enter a valid email address</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Create a strong password">
+          <div class="form-error" *ngIf="serviceProfileForm.get('password')?.touched && serviceProfileForm.get('password')?.errors">
+            <span *ngIf="serviceProfileForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="serviceProfileForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password *</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+            placeholder="Re-enter your password">
+          <div class="form-error" *ngIf="serviceProfileForm.get('confirmPassword')?.touched && serviceProfileForm.get('confirmPassword')?.errors">
+            <span *ngIf="serviceProfileForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="serviceProfileForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+      </form>
+
+      <!-- Step 3: ID Verification -->
+      <form *ngIf="currentStep === 3" [formGroup]="idVerificationForm" class="form">
+        <div class="form-group">
+          <label class="form-label">ID Type *</label>
+          <select class="form-control" formControlName="idType">
+            <option value="">Select ID Type</option>
+            <option value="AADHAAR">Aadhaar Card</option>
+            <option value="PAN">PAN Card</option>
+            <option value="DRIVING_LICENSE">Driving License</option>
+            <option value="PASSPORT">Passport</option>
+          </select>
+          <div class="form-error" *ngIf="idVerificationForm.get('idType')?.touched && idVerificationForm.get('idType')?.errors?.['required']">
+            Please select an ID type
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ID Number *</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="idNumber"
+            placeholder="Enter your ID number">
+          <div class="form-error" *ngIf="idVerificationForm.get('idNumber')?.touched && idVerificationForm.get('idNumber')?.errors?.['required']">
+            ID number is required
+          </div>
+        </div>
+
+        <div class="verification-note">
+          <span class="material-icons">verified_user</span>
+          <p>Your ID will be verified to ensure the safety and security of all users on the platform.</p>
+        </div>
+      </form>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          *ngIf="currentStep > 1"
+          (click)="previousStep()">
+          BACK
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-next"
+          (click)="nextStep()">
+          {{ currentStep === totalSteps ? 'SUBMIT' : 'NEXT' }}
+          <span class="material-icons">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Back to Home Link -->
+      <div class="back-link">
+        <a (click)="backToHome()">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
